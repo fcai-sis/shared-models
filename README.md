@@ -16,6 +16,7 @@ touch src/models/potato.model.ts
 
 ```typescript
 // src/models/potato.model.ts
+
 import mongoose, { InferSchemaType } from 'mongoose';
 
 const potatoSchema = new mongoose.Schema({
