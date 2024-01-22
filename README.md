@@ -48,7 +48,7 @@ export { PotatoModel, PotatoType, potatoModelName };
 export * from './models/potato.model';
 ```
 
-## Installation
+## Usage
 
 To use a shared model in a NodeJS component, all you need to do is install this package and viola!
 
