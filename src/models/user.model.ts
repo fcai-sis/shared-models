@@ -8,9 +8,9 @@ const userSchema = new mongoose.Schema({
 
 const userModelName = 'User';
 
-const User = mongoose.model(userModelName, userSchema);
+const UserModel = mongoose.model(userModelName, userSchema);
 
 type UserType = InferSchemaType<typeof userSchema>;
 
-export { User, UserType, userModelName };
+export { UserModel as User, UserType, userModelName };
 
