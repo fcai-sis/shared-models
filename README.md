@@ -56,6 +56,12 @@ To use a shared model in a NodeJS component, all you need to do is install this 
 npm install @fcai-sis/shared-models
 ```
 
+```typescript
+// some file in your NodeJS component codebase
+
+import { PotatoModel } from "@fcai-sis/shared-models";
+```
+
 ## License
 
 This project is under the [MIT License](./LICENSE)
