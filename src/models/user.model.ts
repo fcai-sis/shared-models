@@ -12,5 +12,5 @@ const UserModel = mongoose.model(userModelName, userSchema);
 
 type UserType = InferSchemaType<typeof userSchema>;
 
-export { UserModel as User, UserType, userModelName };
+export { UserModel, UserType, userModelName };
 
