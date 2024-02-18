@@ -4,3 +4,5 @@ export * from "./models/course/course.model";
 export * from "./models/course/prerequisite.model";
 export * from "./models/hall-slot/hall.model";
 export * from "./models/hall-slot/slot.model";
+export * from "./models/instructor-ta/instructor.model";
+export * from "./models/instructor-ta/ta.model";
