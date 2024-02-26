@@ -25,7 +25,7 @@ type StudentType = {
   address: string;
 };
 
-const studentSchema: Schema = new Schema<StudentType>({
+const studentSchema = new mongoose.Schema({
   studentId: {
     type: String,
     required: [true, "Student ID is required"],
@@ -313,4 +313,4 @@ const StudentModel = mongoose.model<StudentType>(
   studentSchema
 );
 
-export default { StudentModel, studentSchema, studentModelName };
+export { StudentModel, StudentType, studentModelName };
