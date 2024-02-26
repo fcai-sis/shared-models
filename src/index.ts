@@ -6,3 +6,4 @@ export * from "./models/hall-slot/hall.model";
 export * from "./models/hall-slot/slot.model";
 export * from "./models/instructor-ta/instructor.model";
 export * from "./models/instructor-ta/ta.model";
+export * from "./models/student.model";
