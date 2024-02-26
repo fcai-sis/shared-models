@@ -28,4 +28,4 @@ const InstructorModel = mongoose.model<InstructorType>(
   instructorSchema
 );
 
-export { InstructorModel, instructorSchema, instructorModelName };
+export { InstructorModel, InstructorType, instructorModelName };

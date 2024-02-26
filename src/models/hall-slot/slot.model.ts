@@ -17,4 +17,4 @@ const slotModelName = "Slot";
 
 const Slot = mongoose.model<SlotType>(slotModelName, slotSchema);
 
-export { Slot, slotSchema, slotModelName };
+export { Slot, SlotType, slotModelName };

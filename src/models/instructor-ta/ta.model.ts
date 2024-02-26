@@ -31,5 +31,5 @@ const TeacherAssistantModel = mongoose.model<TeacherAssistantType>(
 export {
   TeacherAssistantModel,
   teacherAssistantModelName,
-  teacherAssistantSchema,
+  TeacherAssistantType,
 };

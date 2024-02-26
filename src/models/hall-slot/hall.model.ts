@@ -9,4 +9,4 @@ type HallType = InferSchemaType<typeof HallSchema>;
 const hallModelName = "Hall";
 const Hall = mongoose.model<HallType>(hallModelName, HallSchema);
 
-export { Hall, HallSchema, hallModelName };
+export { Hall, HallType, hallModelName };
