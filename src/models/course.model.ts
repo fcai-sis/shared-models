@@ -1,6 +1,7 @@
 import mongoose, { InferSchemaType } from "mongoose";
+import { departmentModelName } from "./department.model";
 
-import { departmentModelName } from "../department.model";
+const courseModelName = "Course";
 
 const courseSchema = new mongoose.Schema({
   code: {
@@ -28,6 +29,12 @@ const courseSchema = new mongoose.Schema({
       required: true,
     },
   },
+  prerequisites: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: courseModelName,
+    },
+  ],
   department: {
     type: mongoose.Schema.Types.ObjectId,
     ref: departmentModelName,
@@ -38,8 +45,6 @@ const courseSchema = new mongoose.Schema({
     required: true,
   },
 });
-
-const courseModelName = "Course";
 
 type CourseType = InferSchemaType<typeof courseSchema>;
 
