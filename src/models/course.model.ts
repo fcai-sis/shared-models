@@ -3,8 +3,6 @@ import { departmentModelName } from "./department.model";
 
 const courseModelName = "Course";
 
-const courseModelName = "Course";
-
 const courseSchema = new mongoose.Schema({
   code: {
     type: String,
@@ -46,12 +44,6 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  prerequisites: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: courseModelName,
-    },
-  ],
 });
 
 type CourseType = InferSchemaType<typeof courseSchema>;
