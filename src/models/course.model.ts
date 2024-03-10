@@ -44,6 +44,20 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  bylaw: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Bylaw",
+    required: true,
+  },
+  program: {
+    type: [String],
+    enum: ["General", "CS", "IS", "IT", "DS", "AI"],
+    required: true,
+  },
+  optional: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 type CourseType = InferSchemaType<typeof courseSchema>;
