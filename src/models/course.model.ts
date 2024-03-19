@@ -35,7 +35,7 @@ const courseSchema = new mongoose.Schema({
       ref: courseModelName,
     },
   ],
-  department: {
+  departments: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: departmentModelName,
     required: true,
