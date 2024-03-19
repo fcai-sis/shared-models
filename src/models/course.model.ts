@@ -36,7 +36,7 @@ const courseSchema = new mongoose.Schema({
     },
   ],
   department: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: [mongoose.Schema.Types.ObjectId],
     ref: departmentModelName,
     required: true,
   },
@@ -47,11 +47,6 @@ const courseSchema = new mongoose.Schema({
   bylaw: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Bylaw",
-    required: true,
-  },
-  program: {
-    type: [String],
-    enum: ["General", "CS", "IS", "IT", "DS", "AI"],
     required: true,
   },
   optional: {
