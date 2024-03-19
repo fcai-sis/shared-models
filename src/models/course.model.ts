@@ -49,8 +49,9 @@ const courseSchema = new mongoose.Schema({
     ref: "Bylaw",
     required: true,
   },
-  optional: {
-    type: Boolean,
+  courseType: {
+    type: String,
+    enum: ["mandatory", "elective"],
     required: true,
   },
 });
