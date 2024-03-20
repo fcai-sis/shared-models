@@ -1,10 +1,5 @@
 import mongoose, { InferSchemaType } from "mongoose";
 
-/*TODO: check whether the following fields are necessary :
-كود الادارة
-كود الشرطة
-قسم الشرطة*/
-
 const studentSchema = new mongoose.Schema({
   studentId: {
     type: String,
@@ -12,8 +7,8 @@ const studentSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: function (value: string) {
-        // studentId must be a string of digits
-        return !/\D/.test(value);
+        // pattern : string must start with current year and contain only digits
+        return new RegExp(`^${new Date().getFullYear()}\\d{4}$`).test(value);
       },
       message: "Student ID must be a valid ID",
     },
@@ -35,18 +30,6 @@ const studentSchema = new mongoose.Schema({
   groupCode: {
     type: Boolean,
     required: [true, "Group code is required"],
-    set: function (value: any) {
-      // convert the string to a number if possible
-      const parsedValue = parseInt(String(value), 10);
-      // check if the value is a number before mapping
-      if (typeof parsedValue === "number" && !isNaN(parsedValue)) {
-        // map 1 to true and 2 to false
-        return parsedValue === 1;
-      } else {
-        // for now, let's default to undefined so that it's not mistaken for a boolean
-        return undefined;
-      }
-    },
     validate: {
       validator: function (value: boolean) {
         // Validate if it's a boolean (true or false)
@@ -59,27 +42,6 @@ const studentSchema = new mongoose.Schema({
     type: String,
     enum: ["male", "female", "other"],
     required: [true, "Gender is required"],
-    set: function (value: number | string) {
-      // convert the string to a number if possible
-      const parsedValue = parseInt(String(value), 10);
-
-      // Map numbers to corresponding strings
-      if (typeof parsedValue === "number") {
-        switch (parsedValue) {
-          case 1:
-            return "male";
-          case 2:
-            return "female";
-          case 3:
-            return "other";
-          default:
-            return undefined;
-        }
-      } else {
-        // If the value is already a string, leave it unchanged
-        return value;
-      }
-    },
     validate: {
       validator: function (value: string) {
         return ["male", "female", "other"].includes(value);
@@ -91,27 +53,6 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: [true, "Religion is required"],
     enum: ["muslim", "christian", "other"],
-    set: function (value: number | string) {
-      // convert the string to a number if possible
-      const parsedValue = parseInt(String(value), 10);
-
-      // Map numbers to corresponding strings
-      if (typeof parsedValue === "number") {
-        switch (parsedValue) {
-          case 1:
-            return "muslim";
-          case 2:
-            return "christian";
-          case 3:
-            return "other";
-          default:
-            return undefined;
-        }
-      } else {
-        // If the value is already a string, leave it unchanged
-        return value;
-      }
-    },
     validate: {
       validator: function (value: string) {
         return ["muslim", "christian", "other"].includes(value);
@@ -155,22 +96,14 @@ const studentSchema = new mongoose.Schema({
   },
   phoneNumber: {
     type: String,
-    required: false,
-    // validate: {
-    //   validator: function (value: string) {
-    //     // phoneNumber must be a string of 11 digits
-    //     return /^\d{11}$/.test(value);
-    //   },
-    //   message: "Phone number must be an 11-digit number",
-    // },
+    required: [true, "Phone number is required"],
     validate: {
-      // TODO: just make sure tis a number till we figure out the deal with empty fields
       validator: function (value: string) {
-        return !isNaN(Number(value));
+        // phoneNumber must be a string of 11 digits
+        return /^\d{11}$/.test(value);
       },
-      message: "Phone number must be numeric",
+      message: "Phone number must be an 11-digit number",
     },
-    default: undefined,
   },
   educationType: {
     type: String,
@@ -242,25 +175,6 @@ const studentSchema = new mongoose.Schema({
   nationality: {
     type: String,
     required: [true, "Nationality is required"],
-    set: function (value: string | number) {
-      // convert the string to a number if possible
-      const parsedValue = parseInt(String(value), 10);
-      // Map numbers to corresponding strings
-
-      // TODO: figure out nationality enums and modify this
-      if (typeof parsedValue === "number") {
-        switch (parsedValue) {
-          case 1:
-            return "egyptian";
-
-          default:
-            return "foreigner";
-        }
-      } else {
-        // If the value is already a string, leave it unchanged
-        return parsedValue;
-      }
-    },
     validate: {
       validator: function (value: string) {
         return ["egyptian", "foreigner"].includes(value);
