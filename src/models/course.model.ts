@@ -3,6 +3,13 @@ import { departmentModelName } from "./department.model";
 
 const courseModelName = "Course";
 
+
+export enum TypeCourse {
+  Mandatory = "mandatory",
+  Elective = "elective",
+  Graduation = "graduation",
+}
+
 const courseSchema = new mongoose.Schema({
   code: {
     type: String,
@@ -51,7 +58,7 @@ const courseSchema = new mongoose.Schema({
   },
   courseType: {
     type: String,
-    enum: ["mandatory", "elective"],
+    enum: Object.values(TypeCourse),
     required: true,
   },
 });
