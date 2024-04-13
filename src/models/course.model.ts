@@ -57,6 +57,7 @@ const courseSchema = new mongoose.Schema({
   },
 });
 
+
 type CourseType = InferSchemaType<typeof courseSchema>;
 
 const CourseModel = mongoose.model<CourseType>(courseModelName, courseSchema);
