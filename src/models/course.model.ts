@@ -3,8 +3,7 @@ import { departmentModelName } from "./department.model";
 
 const courseModelName = "Course";
 
-
-export enum TypeCourse {
+enum CourseTypeEnum {
   Mandatory = "mandatory",
   Elective = "elective",
   Graduation = "graduation",
@@ -58,7 +57,7 @@ const courseSchema = new mongoose.Schema({
   },
   courseType: {
     type: String,
-    enum: Object.values(TypeCourse),
+    enum: Object.values(CourseTypeEnum),
     required: true,
   },
 });
@@ -67,4 +66,4 @@ type CourseType = InferSchemaType<typeof courseSchema>;
 
 const CourseModel = mongoose.model<CourseType>(courseModelName, courseSchema);
 
-export { CourseModel, CourseType, courseModelName };
+export { CourseModel, CourseType, courseModelName, CourseTypeEnum};
