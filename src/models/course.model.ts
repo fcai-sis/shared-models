@@ -50,11 +50,6 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  bylaw: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Bylaw",
-    required: true,
-  },
   courseType: {
     type: String,
     enum: Object.values(CourseTypeEnum),
