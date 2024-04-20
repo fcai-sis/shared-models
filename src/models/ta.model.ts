@@ -2,7 +2,7 @@ import mongoose, { InferSchemaType, Schema } from "mongoose";
 import { departmentModelName } from "./department.model";
 import { userModelName } from "./user.model";
 
-const teacherAssistantSchema: Schema = new Schema({
+const teacherAssistantSchema = new Schema({
   fullName: { type: String, required: true },
   email: {
     type: String,

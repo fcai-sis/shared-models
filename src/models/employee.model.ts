@@ -1,7 +1,7 @@
 import mongoose, { InferSchemaType, Schema } from "mongoose";
 import { userModelName } from "./user.model";
 
-const employeeSchema: Schema = new Schema({
+const employeeSchema = new Schema({
   fullName: { type: String, required: true },
   username: { type: String, required: true },
   email: {
@@ -30,5 +30,3 @@ const EmployeeModel = mongoose.model<EmployeeType>(
 );
 
 export { EmployeeModel, employeeModelName, EmployeeType };
-
-
