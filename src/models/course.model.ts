@@ -14,6 +14,11 @@ const courseSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    match: [
+      // Course code must follow this pattern: 2-4 uppercase letters followed by 3 digits
+      /^[A-Z]{2,4}\d{3}$/,
+      "Invalid course code",
+    ],
   },
   name: {
     ar: {
@@ -62,4 +67,4 @@ type CourseType = InferSchemaType<typeof courseSchema>;
 
 const CourseModel = mongoose.model<CourseType>(courseModelName, courseSchema);
 
-export { CourseModel, CourseType, courseModelName, CourseTypeEnum};
+export { CourseModel, CourseType, courseModelName, CourseTypeEnum };
