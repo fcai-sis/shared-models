@@ -1,9 +1,10 @@
 import mongoose, { InferSchemaType } from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  password: String,
+  password: {
+    type: String,
+    required: [true, 'Password is required'],
+  },
 });
 
 const userModelName = 'User';

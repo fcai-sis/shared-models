@@ -1,5 +1,6 @@
 import mongoose, { InferSchemaType, Schema } from "mongoose";
 import { departmentModelName } from "./department.model";
+import { userModelName } from "./user.model";
 
 const teacherAssistantSchema: Schema = new Schema({
   fullName: { type: String, required: true },
@@ -15,6 +16,11 @@ const teacherAssistantSchema: Schema = new Schema({
   department: {
     type: mongoose.Schema.Types.ObjectId,
     ref: departmentModelName,
+    required: true,
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: userModelName,
     required: true,
   },
 });

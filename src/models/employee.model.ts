@@ -1,4 +1,5 @@
 import mongoose, { InferSchemaType, Schema } from "mongoose";
+import { userModelName } from "./user.model";
 
 const employeeSchema: Schema = new Schema({
   fullName: { type: String, required: true },
@@ -11,6 +12,11 @@ const employeeSchema: Schema = new Schema({
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       "Please fill a valid email address",
     ],
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: userModelName,
+    required: true,
   },
 });
 
