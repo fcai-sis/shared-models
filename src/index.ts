@@ -7,3 +7,4 @@ export * from "./models/student.model";
 export * from "./models/employee.model";
 export * from "./models/instructor.model";
 export * from "./models/department.model";
+export * from "./models/semester.model";
