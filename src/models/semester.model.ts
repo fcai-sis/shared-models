@@ -41,9 +41,9 @@ semesterSchema.pre("save", async function (next) {
   }
 });
 
-export type SemesterType = InferSchemaType<typeof semesterSchema>;
-export const semesterModelName = "Semester";
+type SemesterType = InferSchemaType<typeof semesterSchema>;
+const semesterModelName = "Semester";
 
 const SemesterModel = mongoose.model(semesterModelName, semesterSchema);
 
-export default SemesterModel;
+export { SemesterModel, semesterModelName, SemesterType };
