@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/fcai-sis/shared-models#readme",
   "dependencies": {
-    "@fcai-sis/shared-utilities": "^0.2.1",
+    "@fcai-sis/shared-utilities": "latest",
     "mongoose": "^8.1.0"
   }
 }
