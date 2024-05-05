@@ -8,7 +8,6 @@ const studentSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: function(value: string) {
-        // student ID must be digits only
         return /^\d+$/.test(value);
       },
       message: "Student ID must be a valid ID",
