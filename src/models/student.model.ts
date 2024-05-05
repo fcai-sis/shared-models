@@ -8,8 +8,8 @@ const studentSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: function(value: string) {
-        // pattern : string must start with current year and contain only digits
-        return new RegExp(`^${new Date().getFullYear()}\\d{4}$`).test(value);
+        // student ID must be digits only
+        return /^\d+$/.test(value);
       },
       message: "Student ID must be a valid ID",
     },
