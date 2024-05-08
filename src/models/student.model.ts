@@ -198,7 +198,6 @@ const studentSchema = new mongoose.Schema({
       message: "Address cannot be empty",
     },
   },
-
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: userModelName,
