@@ -9,3 +9,4 @@ export * from "./models/instructor.model";
 export * from "./models/department.model";
 export * from "./models/semester.model";
 export * from "./models/enrollment.model";
+export * from "./models/admin.model";
