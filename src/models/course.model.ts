@@ -1,10 +1,11 @@
 import mongoose, { InferSchemaType } from "mongoose";
+
 import { departmentModelName } from "./department.model";
 
-const courseModelName = "Course";
+export const courseModelName = "Course";
 
-const CourseTypes = ["mandatory", "elective", "graduation"] as const;
-type CourseTypeEnum = (typeof CourseTypes)[number];
+export const CourseTypeEnum = ["mandatory", "elective", "graduation"];
+export type CourseTypeEnumType = typeof CourseTypeEnum[number];
 
 const courseSchema = new mongoose.Schema({
   code: {
@@ -54,13 +55,10 @@ const courseSchema = new mongoose.Schema({
   },
   courseType: {
     type: String,
-    enum: CourseTypes,
+    enum: CourseTypeEnum,
     required: true,
   },
 });
 
-type CourseType = InferSchemaType<typeof courseSchema>;
-
-const CourseModel = mongoose.model<CourseType>(courseModelName, courseSchema);
-
-export { CourseModel, CourseType, courseModelName, CourseTypeEnum };
+export type CourseType = InferSchemaType<typeof courseSchema>;
+export const CourseModel = mongoose.model<CourseType>(courseModelName, courseSchema);
