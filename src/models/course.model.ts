@@ -3,8 +3,8 @@ import { departmentModelName } from "./department.model";
 
 const courseModelName = "Course";
 
-const CourseTypeEnum = ["mandatory", "elective", "graduation"] as const;
-export type CourseTypeEnum = (typeof CourseTypeEnum)[number];
+const CourseTypes = ["mandatory", "elective", "graduation"] as const;
+type CourseTypeEnum = (typeof CourseTypes)[number];
 
 const courseSchema = new mongoose.Schema({
   code: {
@@ -54,7 +54,7 @@ const courseSchema = new mongoose.Schema({
   },
   courseType: {
     type: String,
-    enum: CourseTypeEnum,
+    enum: CourseTypes,
     required: true,
   },
 });
