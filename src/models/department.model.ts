@@ -1,6 +1,14 @@
-import mongoose, { InferSchemaType } from "mongoose";
+import mongoose from "mongoose";
 
-const departmentSchema = new mongoose.Schema({
+export interface IDepartment extends mongoose.Document {
+  code: string;
+  name: {
+    ar: string;
+    en: string;
+  };
+}
+
+const departmentSchema = new mongoose.Schema<IDepartment>({
   code: {
     type: String,
     required: true,
@@ -18,13 +26,7 @@ const departmentSchema = new mongoose.Schema({
   },
 });
 
-const departmentModelName = "Department";
+export const departmentModelName = "Department";
 
-type DepartmentType = InferSchemaType<typeof departmentSchema>;
+export const DepartmentModel = mongoose.models.Department || mongoose.model<IDepartment>(departmentModelName, departmentSchema);
 
-const DepartmentModel = mongoose.model<DepartmentType>(
-  departmentModelName,
-  departmentSchema
-);
-
-export { DepartmentModel, DepartmentType, departmentModelName };

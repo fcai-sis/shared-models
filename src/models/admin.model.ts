@@ -1,7 +1,14 @@
-import mongoose, { InferSchemaType, Schema } from "mongoose";
+import mongoose from "mongoose";
 import { userModelName } from "./user.model";
 
-const adminSchema = new Schema({
+export interface IAdmin extends mongoose.Document {
+  fullName: string;
+  username: string;
+  email: string;
+  userId: mongoose.Schema.Types.ObjectId;
+}
+
+const adminSchema = new mongoose.Schema<IAdmin>({
   fullName: { type: String, required: true },
   username: { type: String, required: true },
   email: {
@@ -20,10 +27,6 @@ const adminSchema = new Schema({
   },
 });
 
-type AdminType = InferSchemaType<typeof adminSchema>;
+export const adminModelName = "Admin";
 
-const adminModelName = "Admin";
-
-const AdminModel = mongoose.model<AdminType>(adminModelName, adminSchema);
-
-export { AdminModel, adminModelName, AdminType };
+export const AdminModel = mongoose.models.Admin || mongoose.model<IAdmin>(adminModelName, adminSchema);

@@ -1,6 +1,18 @@
-import mongoose, { InferSchemaType } from "mongoose";
+import mongoose from "mongoose";
 
-const slotSchema = new mongoose.Schema({
+export interface ISlot extends mongoose.Document {
+  startTime: {
+    hour: number;
+    minute: number;
+  };
+  endTime: {
+    hour: number;
+    minute: number;
+  };
+  day: number;
+}
+
+const slotSchema = new mongoose.Schema<ISlot>({
   startTime: {
     hour: { type: Number, required: true, min: 0, max: 23 },
     minute: { type: Number, required: true, min: 0, max: 59 },
@@ -12,9 +24,6 @@ const slotSchema = new mongoose.Schema({
   day: { type: Number, required: true, min: 0, max: 6 },
 });
 
-type SlotType = InferSchemaType<typeof slotSchema>;
-const slotModelName = "Slot";
+export const slotModelName = "Slot";
 
-const Slot = mongoose.model<SlotType>(slotModelName, slotSchema);
-
-export { Slot, SlotType, slotModelName };
+export const Slot = mongoose.models.Slot || mongoose.model<ISlot>(slotModelName, slotSchema);

@@ -1,8 +1,15 @@
-import mongoose, { InferSchemaType, Schema } from "mongoose";
+import mongoose from "mongoose";
 import { departmentModelName } from "./department.model";
 import { userModelName } from "./user.model";
 
-const teacherAssistantSchema = new Schema({
+export interface ITeachingAssistant extends mongoose.Document {
+  fullName: string;
+  email: string;
+  department: string;
+  userId: mongoose.Schema.Types.ObjectId;
+}
+
+const teachingAssistantSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   email: {
     type: String,
@@ -25,17 +32,6 @@ const teacherAssistantSchema = new Schema({
   },
 });
 
-type TeacherAssistantType = InferSchemaType<typeof teacherAssistantSchema>;
+export const teachingAssistantName = "TeachingAssistant";
 
-const teacherAssistantModelName = "TeacherAssistant";
-
-const TeacherAssistantModel = mongoose.model<TeacherAssistantType>(
-  teacherAssistantModelName,
-  teacherAssistantSchema
-);
-
-export {
-  TeacherAssistantModel,
-  teacherAssistantModelName,
-  TeacherAssistantType,
-};
+export const TeacherAssistantModel = mongoose.models.TeachingAssistant || mongoose.model<ITeachingAssistant>(teachingAssistantName, teachingAssistantSchema);

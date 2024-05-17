@@ -1,12 +1,15 @@
-import mongoose, { InferSchemaType } from "mongoose";
+import mongoose from "mongoose";
 
-const HallSchema = new mongoose.Schema({
+export interface IHall extends mongoose.Document {
+  name: string;
+  capacity: number;
+}
+
+const HallSchema = new mongoose.Schema<IHall>({
   name: { type: String, required: true },
   capacity: { type: Number, required: true },
 });
 
-type HallType = InferSchemaType<typeof HallSchema>;
-const hallModelName = "Hall";
-const Hall = mongoose.model<HallType>(hallModelName, HallSchema);
+export const hallModelName = "Hall";
 
-export { Hall, HallType, hallModelName };
+export const Hall = mongoose.models.Hall || mongoose.model<IHall>(hallModelName, HallSchema);

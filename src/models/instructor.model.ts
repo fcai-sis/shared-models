@@ -1,8 +1,15 @@
-import mongoose, { InferSchemaType, Schema } from "mongoose";
+import mongoose from "mongoose";
 import { departmentModelName } from "./department.model";
 import { userModelName } from "./user.model";
 
-const instructorSchema = new Schema({
+export interface IInstructor extends mongoose.Document {
+  fullName: string;
+  email: string;
+  department: string;
+  userId: mongoose.Schema.Types.ObjectId;
+}
+
+const instructorSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   email: {
     type: String,
@@ -25,13 +32,6 @@ const instructorSchema = new Schema({
   },
 });
 
-type InstructorType = InferSchemaType<typeof instructorSchema>;
-
 const instructorModelName = "Instructor";
 
-const InstructorModel = mongoose.model<InstructorType>(
-  instructorModelName,
-  instructorSchema
-);
-
-export { InstructorModel, InstructorType, instructorModelName };
+export const InstructorModel = mongoose.models.Instructor || mongoose.model<IInstructor>(instructorModelName, instructorSchema);

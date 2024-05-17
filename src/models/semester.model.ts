@@ -1,11 +1,17 @@
 import { courseModelName } from "../models/course.model";
 import { ForeignKeyNotFound } from "@fcai-sis/shared-utilities";
-import mongoose, { InferSchemaType } from "mongoose";
+import mongoose from "mongoose";
+
+export interface ISemester extends mongoose.Document {
+  year: number;
+  semesterType: string;
+  courseIds: mongoose.Schema.Types.ObjectId[];
+  createdAt: Date;
+}
 
 // A semester basically consists of a year and a semester type (e.g. "Fall", "Spring", "Summer").
 // The semester also has an array of courses, which are the courses that are offered in that semester.
-
-const semesterSchema = new mongoose.Schema({
+const semesterSchema = new mongoose.Schema<ISemester>({
   year: {
     type: Number,
     required: true,
@@ -26,7 +32,7 @@ const semesterSchema = new mongoose.Schema({
 });
 
 // Pre-save hook to ensure referential integrity
-semesterSchema.pre("save", async function (next) {
+semesterSchema.pre("save", async function(next) {
   try {
     const courses = await mongoose
       .model(courseModelName)
@@ -41,9 +47,6 @@ semesterSchema.pre("save", async function (next) {
   }
 });
 
-type SemesterType = InferSchemaType<typeof semesterSchema>;
-const semesterModelName = "Semester";
+export const semesterModelName = "Semester";
 
-const SemesterModel = mongoose.model(semesterModelName, semesterSchema);
-
-export { SemesterModel, semesterModelName, SemesterType };
+export const SemesterModel = mongoose.models.Semester || mongoose.model<ISemester>(semesterModelName, semesterSchema);

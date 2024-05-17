@@ -1,13 +1,29 @@
-import mongoose, { InferSchemaType } from "mongoose";
+import mongoose from "mongoose";
 
 import { departmentModelName } from "./department.model";
+
+export interface ICourse extends mongoose.Document {
+  code: string;
+  name: {
+    ar: string;
+    en: string;
+  };
+  description: {
+    ar: string;
+    en: string;
+  };
+  prerequisites: mongoose.Schema.Types.ObjectId[];
+  departments: mongoose.Schema.Types.ObjectId[];
+  creditHours: number;
+  courseType: CourseTypeEnumType;
+}
 
 export const courseModelName = "Course";
 
 export const CourseTypeEnum = ["mandatory", "elective", "graduation"];
 export type CourseTypeEnumType = typeof CourseTypeEnum[number];
 
-const courseSchema = new mongoose.Schema({
+const courseSchema = new mongoose.Schema<ICourse>({
   code: {
     type: String,
     required: true,
@@ -60,5 +76,4 @@ const courseSchema = new mongoose.Schema({
   },
 });
 
-export type CourseType = InferSchemaType<typeof courseSchema>;
-export const CourseModel = mongoose.model<CourseType>(courseModelName, courseSchema);
+export const CourseModel = mongoose.models.Course || mongoose.model<ICourse>(courseModelName, courseSchema);
