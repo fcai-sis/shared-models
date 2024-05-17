@@ -34,4 +34,4 @@ const teachingAssistantSchema = new mongoose.Schema({
 
 export const teachingAssistantName = "TeachingAssistant";
 
-export const TeacherAssistantModel = mongoose.models.TeachingAssistant || mongoose.model<ITeachingAssistant>(teachingAssistantName, teachingAssistantSchema);
+export const TeachingAssistantModel = mongoose.models.TeachingAssistant || mongoose.model<ITeachingAssistant>(teachingAssistantName, teachingAssistantSchema);
