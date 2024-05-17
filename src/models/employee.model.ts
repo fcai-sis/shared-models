@@ -29,4 +29,4 @@ const employeeSchema = new mongoose.Schema<IEmployee>({
 
 export const employeeModelName = "Employee";
 
-export default mongoose.models.Employee || mongoose.model<IEmployee>(employeeModelName, employeeSchema);
+export const EmployeeModel = mongoose.models.Employee || mongoose.model<IEmployee>(employeeModelName, employeeSchema);
