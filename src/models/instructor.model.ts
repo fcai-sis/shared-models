@@ -32,6 +32,6 @@ const instructorSchema = new mongoose.Schema({
   },
 });
 
-const instructorModelName = "Instructor";
+export const instructorModelName = "Instructor";
 
 export const InstructorModel = mongoose.models.Instructor || mongoose.model<IInstructor>(instructorModelName, instructorSchema);
