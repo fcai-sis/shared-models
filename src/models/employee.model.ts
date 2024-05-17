@@ -1,7 +1,14 @@
-import mongoose, { InferSchemaType, Schema } from "mongoose";
+import mongoose from "mongoose";
 import { userModelName } from "./user.model";
 
-const employeeSchema = new Schema({
+export interface IEmployee extends mongoose.Document {
+  fullName: string;
+  username: string;
+  email: string;
+  userId: mongoose.Schema.Types.ObjectId;
+}
+
+const employeeSchema = new mongoose.Schema<IEmployee>({
   fullName: { type: String, required: true },
   username: { type: String, required: true },
   email: {
@@ -20,13 +27,6 @@ const employeeSchema = new Schema({
   },
 });
 
-type EmployeeType = InferSchemaType<typeof employeeSchema>;
+export const employeeModelName = "Employee";
 
-const employeeModelName = "Employee";
-
-const EmployeeModel = mongoose.model<EmployeeType>(
-  employeeModelName,
-  employeeSchema
-);
-
-export { EmployeeModel, employeeModelName, EmployeeType };
+export default mongoose.models.Employee || mongoose.model<IEmployee>(employeeModelName, employeeSchema);

@@ -1,7 +1,28 @@
-import mongoose, { InferSchemaType } from "mongoose";
+import mongoose from "mongoose";
 import { userModelName } from "./user.model";
 
-const studentSchema = new mongoose.Schema({
+export interface IStudent extends mongoose.Document {
+  studentId: string;
+  fullName: string;
+  groupCode: boolean;
+  gender: string;
+  religion: string;
+  nationalId: string;
+  administration: string;
+  directorate: string;
+  phoneNumber: string;
+  educationType: string;
+  birthYear: number;
+  birthMonth: number;
+  birthDay: number;
+  birthPlace: string;
+  governorateId: number
+  nationality: string;
+  address: string;
+  userId: mongoose.Schema.Types.ObjectId;
+}
+
+const studentSchema = new mongoose.Schema<IStudent>({
   studentId: {
     type: String,
     required: [true, "Student ID is required"],
@@ -205,13 +226,6 @@ const studentSchema = new mongoose.Schema({
   },
 });
 
-const studentModelName = "Student";
+export const studentModelName = "Student";
 
-type StudentType = InferSchemaType<typeof studentSchema>;
-
-const StudentModel = mongoose.model<StudentType>(
-  studentModelName,
-  studentSchema
-);
-
-export { StudentModel, StudentType, studentModelName };
+export default mongoose.models.Student || mongoose.model<IStudent>(studentModelName, studentSchema);

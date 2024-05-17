@@ -1,17 +1,16 @@
-import mongoose, { InferSchemaType } from 'mongoose';
+import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema({
+export interface IUser extends mongoose.Document {
+  password: string;
+}
+
+const userSchema = new mongoose.Schema<IUser>({
   password: {
     type: String,
-    required: [true, 'Password is required'],
+    required: true,
   },
 });
 
-const userModelName = 'User';
+export const userModelName = 'User';
 
-const UserModel = mongoose.model(userModelName, userSchema);
-
-type UserType = InferSchemaType<typeof userSchema>;
-
-export { UserModel, UserType, userModelName };
-
+export default mongoose.models.User || mongoose.model<IUser>(userModelName, userSchema);
