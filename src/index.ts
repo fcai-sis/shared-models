@@ -11,3 +11,5 @@ export * from "./models/semester.model";
 export * from "./models/enrollment.model";
 export * from "./models/admin.model";
 export * from "./models/dbLock.model";
+export * from "./models/taTeaching.model";
+export * from "./models/instructorTeaching.model";
