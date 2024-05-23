@@ -63,6 +63,6 @@ export const instructorTeachingModelName = "InstructorTeaching";
 export const InstructorTeachingModel =
   mongoose.models.InstructorTeaching ||
   mongoose.model<IInstructorTeaching>(
-    instructorModelName,
+    instructorTeachingModelName,
     instructorTeachingSchema
   );
