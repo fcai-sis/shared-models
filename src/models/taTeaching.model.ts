@@ -3,7 +3,7 @@ import { ForeignKeyNotFound } from "@fcai-sis/shared-utilities";
 import { courseModelName } from "./course.model";
 import { teachingAssistantModelName } from "./ta.model";
 import { semesterModelName } from "./semester.model";
-import { SectionModel } from "./section.model";
+import { SectionModel, sectionModelName } from "./section.model";
 
 export interface ITaTeaching extends mongoose.Document {
   taId: mongoose.Schema.Types.ObjectId;
@@ -65,7 +65,9 @@ taTeachingSchema.pre(
   { document: true, query: false },
   async function (next) {
     try {
-      await SectionModel.deleteMany({ teachingId: this._id });
+      await mongoose
+        .model(sectionModelName)
+        .deleteMany({ teachingId: this._id });
 
       next();
     } catch (error: any) {
