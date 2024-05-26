@@ -59,20 +59,6 @@ taTeachingSchema.pre("save", async function (next) {
   }
 });
 
-// post hook to ensure referential integrity is maintained so it delete lectures on deleting instructor teaching
-taTeachingSchema.post(
-  "deleteOne",
-  { document: true, query: false },
-  async function (doc, next) {
-    // Add 'next' parameter
-    try {
-      await SectionModel.deleteMany({ taTeachingId: doc._id });
-    } catch (error: any) {
-      return next(error);
-    }
-  }
-);
-
 export const taTeachingModelName = "TaTeaching";
 
 export const TaTeachingModel =
