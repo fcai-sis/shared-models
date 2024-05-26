@@ -59,19 +59,16 @@ instructorTeachingSchema.pre("save", async function (next) {
   }
 });
 
-//pre hook to ensure referential integrity is maintained so it delete lectures on deleting instructor teaching
-instructorTeachingSchema.pre(
-  "deleteOne",
-  { document: true, query: false },
-  async function (next) {
+//post hook to ensure referential integrity is maintained so it delete lectures on deleting instructor teaching
+instructorTeachingSchema.post(
+  "findOneAndDelete",
+  async function (doc: IInstructorTeaching) {
     try {
       await mongoose
         .model(lectureModelName)
-        .deleteMany({ teachingId: this._id });
-
-      next();
+        .deleteMany({ instructorTeachingId: doc._id });
     } catch (error: any) {
-      return next(error);
+      return error;
     }
   }
 );
