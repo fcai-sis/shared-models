@@ -14,7 +14,7 @@ export interface ISection extends mongoose.Document {
   teachingId: mongoose.Schema.Types.ObjectId;
 }
 
-const lectureSchema = new mongoose.Schema({
+const sectionSchema = new mongoose.Schema({
   groupName: {
     type: String,
     required: true,
@@ -42,7 +42,7 @@ const lectureSchema = new mongoose.Schema({
 });
 
 // Pre-save hook to ensure referential integrity
-lectureSchema.pre("save", async function (next) {
+sectionSchema.pre("save", async function (next) {
   try {
     const schedule = await mongoose
       .model(scheduleModelName)
@@ -78,4 +78,4 @@ export const sectionModelName = "Section";
 
 export const SectionModel =
   mongoose.models.Section ||
-  mongoose.model<ISection>(sectionModelName, lectureSchema);
+  mongoose.model<ISection>(sectionModelName, sectionSchema);
