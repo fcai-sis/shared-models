@@ -58,6 +58,17 @@ instructorTeachingSchema.pre("save", async function (next) {
   }
 });
 
+//pre hook to ensure referential integrity is maintained so it delete lectures on deleting instructor teaching
+instructorTeachingSchema.pre("deleteOne", { document: true , query: false }, async function (next) {
+  try {
+    await mongoose.model("Lecture").deleteMany({ teachingId: this._id });
+
+    next();
+  } catch (error: any) {
+    return next(error);
+  }
+});
+
 export const instructorTeachingModelName = "InstructorTeaching";
 
 export const InstructorTeachingModel =
