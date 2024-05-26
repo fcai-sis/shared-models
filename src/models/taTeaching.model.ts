@@ -3,6 +3,7 @@ import { ForeignKeyNotFound } from "@fcai-sis/shared-utilities";
 import { courseModelName } from "./course.model";
 import { teachingAssistantModelName } from "./ta.model";
 import { semesterModelName } from "./semester.model";
+import { SectionModel } from "./section.model";
 
 export interface ITaTeaching extends mongoose.Document {
   taId: mongoose.Schema.Types.ObjectId;
@@ -57,6 +58,21 @@ taTeachingSchema.pre("save", async function (next) {
     return next(error);
   }
 });
+
+// pre hook to ensure referential integrity is maintained so it delete lectures on deleting instructor teaching
+taTeachingSchema.pre(
+  "deleteOne",
+  { document: true, query: false },
+  async function (next) {
+    try {
+      await SectionModel.deleteMany({ teachingId: this._id });
+
+      next();
+    } catch (error: any) {
+      return next(error);
+    }
+  }
+);
 
 export const taTeachingModelName = "TaTeaching";
 

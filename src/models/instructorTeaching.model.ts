@@ -3,6 +3,7 @@ import { ForeignKeyNotFound } from "@fcai-sis/shared-utilities";
 import { instructorModelName } from "./instructor.model";
 import { courseModelName } from "./course.model";
 import { semesterModelName } from "./semester.model";
+import { LectureModel } from "./lecture.model";
 
 export interface IInstructorTeaching extends mongoose.Document {
   instructorId: mongoose.Schema.Types.ObjectId;
@@ -57,6 +58,21 @@ instructorTeachingSchema.pre("save", async function (next) {
     return next(error);
   }
 });
+
+//pre hook to ensure referential integrity is maintained so it delete lectures on deleting instructor teaching
+instructorTeachingSchema.pre(
+  "deleteOne",
+  { document: true, query: false },
+  async function (next) {
+    try {
+      await LectureModel.deleteMany({ teachingId: this._id });
+
+      next();
+    } catch (error: any) {
+      return next(error);
+    }
+  }
+);
 
 export const instructorTeachingModelName = "InstructorTeaching";
 

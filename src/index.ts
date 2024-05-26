@@ -13,3 +13,6 @@ export * from "./models/admin.model";
 export * from "./models/dbLock.model";
 export * from "./models/taTeaching.model";
 export * from "./models/instructorTeaching.model";
+export * from "./models/lecture.model";
+export * from "./models/section.model";
+export * from "./models/schedule.model";
