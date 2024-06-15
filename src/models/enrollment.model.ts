@@ -15,7 +15,7 @@ export interface IEnrollment extends mongoose.Document {
 }
 
 const EnrollmentStatusEnum = ["enrolled", "passed", "failed"] as const;
-export type EnrollmentStatus = typeof EnrollmentStatusEnum[number];
+export type EnrollmentStatus = (typeof EnrollmentStatusEnum)[number];
 
 // Each row in the enrollment collection represents a student's enrollments throughout the years
 export const enrollmentSchema = new mongoose.Schema({
@@ -39,6 +39,25 @@ export const enrollmentSchema = new mongoose.Schema({
     enum: EnrollmentStatusEnum,
     default: "enrolled",
   },
+  scores: {
+    type: [
+      {
+        description: {
+          type: String,
+          required: true,
+        },
+        score: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
+    default: [],
+  },
+  finalExamScore: {
+    type: Number,
+    default: null,
+  },
   seatNumber: {
     type: Number,
     default: null,
@@ -52,4 +71,6 @@ export const enrollmentSchema = new mongoose.Schema({
 
 export const enrollmentModelName = "Enrollment";
 
-export const EnrollmentModel = mongoose.models.Enrollment || mongoose.model<IEnrollment>(enrollmentModelName, enrollmentSchema);
+export const EnrollmentModel =
+  mongoose.models.Enrollment ||
+  mongoose.model<IEnrollment>(enrollmentModelName, enrollmentSchema);
