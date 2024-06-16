@@ -41,7 +41,7 @@ const academicStudentSchema = new mongoose.Schema<IAcademicStudent>({
 export const academicStudentModelName = "Academic Student";
 
 export const AcademicStudentModel =
-  mongoose.models.Student ||
+  mongoose.models.AcademicStudent ||
   mongoose.model<IAcademicStudent>(
     academicStudentModelName,
     academicStudentSchema
