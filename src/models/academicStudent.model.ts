@@ -38,7 +38,7 @@ const academicStudentSchema = new mongoose.Schema<IAcademicStudent>({
   },
 });
 
-export const academicStudentModelName = "Academic Student";
+export const academicStudentModelName = "AcademicStudent";
 
 export const AcademicStudentModel =
   mongoose.models.AcademicStudent ||
