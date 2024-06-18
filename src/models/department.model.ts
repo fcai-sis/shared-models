@@ -6,6 +6,7 @@ export interface IDepartment extends mongoose.Document {
     ar: string;
     en: string;
   };
+  capacity: number;
 }
 
 const departmentSchema = new mongoose.Schema<IDepartment>({
@@ -24,9 +25,14 @@ const departmentSchema = new mongoose.Schema<IDepartment>({
       required: true,
     },
   },
+  capacity: {
+    type: Number,
+    required: true,
+  },
 });
 
 export const departmentModelName = "Department";
 
-export const DepartmentModel = mongoose.models.Department || mongoose.model<IDepartment>(departmentModelName, departmentSchema);
-
+export const DepartmentModel =
+  mongoose.models.Department ||
+  mongoose.model<IDepartment>(departmentModelName, departmentSchema);
