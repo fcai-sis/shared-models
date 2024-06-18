@@ -7,7 +7,11 @@ export interface IDepartment extends mongoose.Document {
     en: string;
   };
   capacity: number;
+  program: ProgramEnumType;
 }
+
+export const ProgramEnum = ["GENERAL", "CREDIT"] as const;
+export type ProgramEnumType = typeof ProgramEnum[number];
 
 const departmentSchema = new mongoose.Schema<IDepartment>({
   code: {
@@ -28,6 +32,12 @@ const departmentSchema = new mongoose.Schema<IDepartment>({
   capacity: {
     type: Number,
     required: true,
+  },
+  program: {
+    type: String,
+    required: true,
+    enum: ProgramEnum,
+    default: ProgramEnum[0],
   },
 });
 

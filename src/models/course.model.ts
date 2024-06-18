@@ -20,7 +20,7 @@ export interface ICourse extends mongoose.Document {
 
 export const courseModelName = "Course";
 
-export const CourseTypeEnum = ["mandatory", "elective", "graduation"];
+export const CourseTypeEnum = ["mandatory", "elective", "graduation"] as const;
 export type CourseTypeEnumType = typeof CourseTypeEnum[number];
 
 const courseSchema = new mongoose.Schema<ICourse>({
