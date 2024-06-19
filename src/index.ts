@@ -1,3 +1,6 @@
+export * from "./schema";
+export * from "./validators";
+
 export * from "./models/academicStudent.model";
 export * from "./models/admin.model";
 export * from "./models/course.model";
