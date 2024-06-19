@@ -13,6 +13,8 @@ export interface ITaTeaching extends mongoose.Document {
   semester: mongoose.Schema.Types.ObjectId;
 }
 
+export type TaTeachingType = Omit<ITaTeaching, keyof mongoose.Document>;
+
 const taTeachingSchema = new mongoose.Schema<ITaTeaching>({
   ta: foreignKey(teachingAssistantModelName),
   course: foreignKey(courseModelName),

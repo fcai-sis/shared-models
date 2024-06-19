@@ -16,6 +16,8 @@ export interface ISection extends mongoose.Document {
   teachingId: mongoose.Schema.Types.ObjectId;
 }
 
+export type SectionType = Omit<ISection, keyof mongoose.Document>;
+
 const sectionSchema = new mongoose.Schema({
   groupName: {
     type: String,

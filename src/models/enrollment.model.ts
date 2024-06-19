@@ -9,6 +9,9 @@ import { foreignKey } from "../schema";
 
 export const enrollmentModelName = "Enrollment";
 
+const EnrollmentStatusEnum = ["ENROLLED", "PASSED", "FAILED"] as const;
+export type EnrollmentStatusEnumType = (typeof EnrollmentStatusEnum)[number];
+
 export interface IEnrollment extends mongoose.Document {
   student: mongoose.Schema.Types.ObjectId;
   semester: mongoose.Schema.Types.ObjectId;
@@ -24,8 +27,7 @@ export interface IEnrollment extends mongoose.Document {
   };
 }
 
-const EnrollmentStatusEnum = ["ENROLLED", "PASSED", "FAILED"] as const;
-export type EnrollmentStatusEnumType = (typeof EnrollmentStatusEnum)[number];
+export type EnrollmentType = Omit<IEnrollment, keyof mongoose.Document>;
 
 // Each row in the enrollment collection represents a student's enrollments throughout the years
 export const enrollmentSchema = new mongoose.Schema<IEnrollment>({

@@ -14,6 +14,8 @@ export interface ICourseWork extends mongoose.Document {
   grade: number;
 }
 
+export type CourseWorkType = Omit<ICourseWork, keyof mongoose.Document>;
+
 export const courseWorkModelName = "CourseWork";
 
 const courseWorkSchema = new mongoose.Schema<ICourseWork>({

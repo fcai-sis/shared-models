@@ -13,6 +13,11 @@ export interface IInstructorTeaching extends mongoose.Document {
   semester: mongoose.Schema.Types.ObjectId;
 }
 
+export type InstructorTeachingType = Omit<
+  IInstructorTeaching,
+  keyof mongoose.Document
+>;
+
 const instructorTeachingSchema = new mongoose.Schema<IInstructorTeaching>({
   instructor: foreignKey(instructorModelName),
   course: foreignKey(courseModelName),

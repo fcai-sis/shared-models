@@ -44,6 +44,8 @@ export interface IStudent extends mongoose.Document {
   user: mongoose.Schema.Types.ObjectId;
 }
 
+export type StudentType = Omit<IStudent, keyof mongoose.Document>;
+
 const studentSchema = new mongoose.Schema<IStudent>({
   studentId: {
     type: String,

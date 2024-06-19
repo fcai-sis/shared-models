@@ -10,6 +10,11 @@ export interface ICoursePrerequisite extends mongoose.Document {
   prerequisite: mongoose.Schema.Types.ObjectId;
 }
 
+export type CoursePrerequisiteType = Omit<
+  ICoursePrerequisite,
+  keyof mongoose.Document
+>;
+
 const coursePrerequisiteSchema = new mongoose.Schema<ICoursePrerequisite>({
   course: foreignKey(courseModelName),
   prerequisite: foreignKey(courseModelName),

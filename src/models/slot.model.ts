@@ -4,6 +4,17 @@ import { integerValidator } from "../validators";
 
 export const slotModelName = "Slot";
 
+export const DayEnum = [
+  "SUNDAY",
+  "MONDAY",
+  "TUESDAY",
+  "WEDNESDAY",
+  "THURSDAY",
+  "FRIDAY",
+  "SATURDAY",
+] as const;
+export type DayEnumType = (typeof DayEnum)[number];
+
 export interface ISlot extends mongoose.Document {
   startTime: {
     hour: number;
@@ -16,16 +27,7 @@ export interface ISlot extends mongoose.Document {
   day: DayEnumType;
 }
 
-export const DayEnum = [
-  "SUNDAY",
-  "MONDAY",
-  "TUESDAY",
-  "WEDNESDAY",
-  "THURSDAY",
-  "FRIDAY",
-  "SATURDAY",
-] as const;
-export type DayEnumType = (typeof DayEnum)[number];
+export type SlotType = Omit<ISlot, keyof mongoose.Document>;
 
 const slotSchema = new mongoose.Schema<ISlot>({
   startTime: {

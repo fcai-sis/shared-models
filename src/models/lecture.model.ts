@@ -15,6 +15,8 @@ export interface ILecture extends mongoose.Document {
   instructorTeaching: mongoose.Schema.Types.ObjectId;
 }
 
+export type LectureType = Omit<ILecture, keyof mongoose.Document>;
+
 const lectureSchema = new mongoose.Schema<ILecture>({
   schedule: foreignKey(scheduleModelName),
   hall: foreignKey(hallModelName),

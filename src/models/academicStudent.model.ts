@@ -18,6 +18,11 @@ export interface IAcademicStudent extends mongoose.Document {
   completedCreditHours: number;
 }
 
+export type AcademicStudentType = Omit<
+  IAcademicStudent,
+  keyof mongoose.Document
+>;
+
 const academicStudentSchema = new mongoose.Schema<IAcademicStudent>({
   student: foreignKey(studentModelName),
   currentDepartment: foreignKey(departmentModelName),

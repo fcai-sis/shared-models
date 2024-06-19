@@ -14,6 +14,8 @@ export interface ISchedule extends mongoose.Document {
   semester: mongoose.Schema.Types.ObjectId;
 }
 
+export type ScheduleType = Omit<ISchedule, keyof mongoose.Document>;
+
 const scheduleSchema = new mongoose.Schema<ISchedule>({
   description: {
     type: String,

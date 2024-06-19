@@ -3,6 +3,9 @@ import { betweenValidator, integerValidator } from "../validators";
 
 export const departmentModelName = "Department";
 
+export const ProgramEnum = ["GENERAL", "CREDIT"] as const;
+export type ProgramEnumType = (typeof ProgramEnum)[number];
+
 export interface IDepartment extends mongoose.Document {
   code: string;
   name: {
@@ -13,8 +16,7 @@ export interface IDepartment extends mongoose.Document {
   program: ProgramEnumType;
 }
 
-export const ProgramEnum = ["GENERAL", "CREDIT"] as const;
-export type ProgramEnumType = (typeof ProgramEnum)[number];
+export type DepartmentType = Omit<IDepartment, keyof mongoose.Document>;
 
 const departmentSchema = new mongoose.Schema<IDepartment>({
   code: {

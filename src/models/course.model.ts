@@ -16,6 +16,7 @@ export const courseCodeValidator = (value: string) =>
 
 export const CourseTypeEnum = ["MANDATORY", "ELECTIVE", "GRADUATION"] as const;
 export type CourseTypeEnumType = (typeof CourseTypeEnum)[number];
+
 export interface ICourse extends mongoose.Document {
   code: string;
   name: {
@@ -29,6 +30,8 @@ export interface ICourse extends mongoose.Document {
   creditHours: number;
   courseType: CourseTypeEnumType;
 }
+
+export type CourseType = Omit<ICourse, keyof mongoose.Document>;
 
 const courseSchema = new mongoose.Schema<ICourse>({
   code: {

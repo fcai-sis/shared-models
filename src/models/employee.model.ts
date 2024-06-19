@@ -12,6 +12,8 @@ export interface IEmployee extends mongoose.Document {
   user: mongoose.Schema.Types.ObjectId;
 }
 
+export type EmployeeType = Omit<IEmployee, keyof mongoose.Document>;
+
 const employeeSchema = new mongoose.Schema<IEmployee>({
   fullName: { type: String, required: true },
   username: { type: String, required: true },

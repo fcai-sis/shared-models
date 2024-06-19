@@ -15,6 +15,11 @@ export interface IStudentSemester extends mongoose.Document {
   semesterLevel: number;
 }
 
+export type StudentSemesterType = Omit<
+  IStudentSemester,
+  keyof mongoose.Document
+>;
+
 const studentSemesterSchema = new mongoose.Schema<IStudentSemester>({
   student: foreignKey(studentModelName),
   semester: foreignKey(semesterModelName),

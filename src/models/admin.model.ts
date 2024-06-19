@@ -13,6 +13,8 @@ export interface IAdmin extends mongoose.Document {
   user: mongoose.Schema.Types.ObjectId;
 }
 
+export type AdminType = Omit<IAdmin, keyof mongoose.Document>;
+
 const adminSchema = new mongoose.Schema<IAdmin>({
   fullName: { type: String, required: true },
   username: { type: String, required: true },

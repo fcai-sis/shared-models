@@ -11,6 +11,8 @@ export interface ISemesterCourse extends mongoose.Document {
   semester: mongoose.Schema.Types.ObjectId;
 }
 
+export type SemesterCourseType = Omit<ISemesterCourse, keyof mongoose.Document>;
+
 const semesterCourseSchema = new mongoose.Schema<ISemesterCourse>({
   course: foreignKey(courseModelName),
   semester: foreignKey(semesterModelName),

@@ -14,6 +14,8 @@ export interface IInstructor extends mongoose.Document {
   user: mongoose.Schema.Types.ObjectId;
 }
 
+export type InstructorType = Omit<IInstructor, keyof mongoose.Document>;
+
 const instructorSchema = new mongoose.Schema<IInstructor>({
   fullName: { type: String, required: true },
   email: {

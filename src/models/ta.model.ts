@@ -14,6 +14,11 @@ export interface ITeachingAssistant extends mongoose.Document {
   user: mongoose.Schema.Types.ObjectId;
 }
 
+export type TeachingAssistantType = Omit<
+  ITeachingAssistant,
+  keyof mongoose.Document
+>;
+
 const teachingAssistantSchema = new mongoose.Schema<ITeachingAssistant>({
   fullName: {
     type: String,

@@ -11,6 +11,8 @@ export interface IHall extends mongoose.Document {
   capacity: number;
 }
 
+export type HallType = Omit<IHall, keyof mongoose.Document>;
+
 const hallSchema = new mongoose.Schema<IHall>({
   name: {
     en: { type: String, required: true },

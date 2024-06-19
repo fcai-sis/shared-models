@@ -9,6 +9,11 @@ export interface ICourseDepartment extends mongoose.Document {
   department: mongoose.Schema.Types.ObjectId;
 }
 
+export type CourseDepartmentType = Omit<
+  ICourseDepartment,
+  keyof mongoose.Document
+>;
+
 export const courseDepartmentModelName = "CourseDepartment";
 
 const courseDepartmentSchema = new mongoose.Schema<ICourseDepartment>({
