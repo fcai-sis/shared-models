@@ -1,6 +1,6 @@
 {
   "name": "@fcai-sis/shared-models",
-  "version": "5.3.0",
+  "version": "5.4.0",
   "description": "contains all reusable mongoose models and schemas",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
