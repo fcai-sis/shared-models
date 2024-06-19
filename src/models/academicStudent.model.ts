@@ -25,7 +25,7 @@ export type AcademicStudentType = Omit<
 
 const academicStudentSchema = new mongoose.Schema<IAcademicStudent>({
   student: foreignKey(studentModelName),
-  currentDepartment: foreignKey(departmentModelName),
+  currentDepartment: foreignKey(departmentModelName, false),
   currentGpa: {
     type: Number,
     default: 4.0,
@@ -42,6 +42,7 @@ const academicStudentSchema = new mongoose.Schema<IAcademicStudent>({
   },
   completedCreditHours: {
     type: Number,
+    default: 0,
     validate: {
       validator: (v: number) => {
         integerValidator("Credit Hours", v);
