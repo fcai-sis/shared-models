@@ -1,11 +1,21 @@
-import { courseModelName } from "../models/course.model";
-import { ForeignKeyNotFound } from "@fcai-sis/shared-utilities";
 import mongoose from "mongoose";
+
+import { betweenValidator, integerValidator } from "../validators";
+
+export const semesterModelName = "Semester";
+
+export const SemesterSeasonEnum = [
+  "FALL",
+  "SPRING",
+  "SUMMER",
+  "WINTER",
+] as const;
+export type SemesterSeason = (typeof SemesterSeasonEnum)[number];
 
 export interface ISemester extends mongoose.Document {
   year: number;
-  semesterType: string;
-  courseIds: mongoose.Schema.Types.ObjectId[];
+  month: number;
+  season: SemesterSeason;
   createdAt: Date;
 }
 
@@ -15,15 +25,27 @@ const semesterSchema = new mongoose.Schema<ISemester>({
   year: {
     type: Number,
     required: true,
+    validate: {
+      validator: (v: number) => {
+        integerValidator("Year", v);
+        betweenValidator("Year", v, 1900, 3000);
+      },
+    },
   },
-  semesterType: {
-    type: String,
-    enum: ["Fall", "Spring", "Summer", "Winter"],
+  month: {
+    type: Number,
     required: true,
+    validate: {
+      validator: (v: number) => {
+        integerValidator("Month", v);
+        betweenValidator("Month", v, 1, 12);
+      },
+    },
   },
-  courseIds: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: courseModelName,
+  season: {
+    type: String,
+    enum: SemesterSeasonEnum,
+    required: true,
   },
   createdAt: {
     type: Date,
@@ -31,22 +53,6 @@ const semesterSchema = new mongoose.Schema<ISemester>({
   },
 });
 
-// Pre-save hook to ensure referential integrity
-semesterSchema.pre("save", async function(next) {
-  try {
-    const courses = await mongoose
-      .model(courseModelName)
-      .find({ _id: { $in: this.courseIds } });
-    if (courses.length !== this.courseIds.length) {
-      throw new ForeignKeyNotFound("Some courses not found");
-    }
-
-    next();
-  } catch (error: any) {
-    return next(error);
-  }
-});
-
-export const semesterModelName = "Semester";
-
-export const SemesterModel = mongoose.models.Semester || mongoose.model<ISemester>(semesterModelName, semesterSchema);
+export const SemesterModel =
+  mongoose.models.Semester ||
+  mongoose.model<ISemester>(semesterModelName, semesterSchema);

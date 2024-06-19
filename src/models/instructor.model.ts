@@ -1,37 +1,33 @@
 import mongoose from "mongoose";
+
 import { departmentModelName } from "./department.model";
 import { userModelName } from "./user.model";
+import { emailValidator } from "../validators";
+import { foreignKey } from "../schema";
+
+export const instructorModelName = "Instructor";
 
 export interface IInstructor extends mongoose.Document {
   fullName: string;
   email: string;
-  department: string;
-  userId: mongoose.Schema.Types.ObjectId;
+  department: mongoose.Schema.Types.ObjectId;
+  user: mongoose.Schema.Types.ObjectId;
 }
 
-const instructorSchema = new mongoose.Schema({
+const instructorSchema = new mongoose.Schema<IInstructor>({
   fullName: { type: String, required: true },
   email: {
     type: String,
     required: true,
     unique: true,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Please fill a valid email address",
-    ],
+    validate: {
+      validator: (v: string) => emailValidator("Instructor Email", v),
+    },
   },
-  department: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: departmentModelName,
-    required: true,
-  },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: userModelName,
-    required: true,
-  },
+  department: foreignKey(departmentModelName),
+  user: foreignKey(userModelName),
 });
 
-export const instructorModelName = "Instructor";
-
-export const InstructorModel = mongoose.models.Instructor || mongoose.model<IInstructor>(instructorModelName, instructorSchema);
+export const InstructorModel =
+  mongoose.models.Instructor ||
+  mongoose.model<IInstructor>(instructorModelName, instructorSchema);

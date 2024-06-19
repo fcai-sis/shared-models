@@ -1,11 +1,16 @@
 import mongoose from "mongoose";
+
 import { userModelName } from "./user.model";
+import { emailValidator } from "../validators";
+import { foreignKey } from "schema";
+
+export const adminModelName = "Admin";
 
 export interface IAdmin extends mongoose.Document {
   fullName: string;
   username: string;
   email: string;
-  userId: mongoose.Schema.Types.ObjectId;
+  user: mongoose.Schema.Types.ObjectId;
 }
 
 const adminSchema = new mongoose.Schema<IAdmin>({
@@ -15,18 +20,12 @@ const adminSchema = new mongoose.Schema<IAdmin>({
     type: String,
     required: true,
     unique: true,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Please fill a valid email address",
-    ],
+    validate: {
+      validator: (v: string) => emailValidator("Admin Email", v),
+    },
   },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: userModelName,
-    required: true,
-  },
+  user: foreignKey(userModelName),
 });
 
-export const adminModelName = "Admin";
-
-export const AdminModel = mongoose.models.Admin || mongoose.model<IAdmin>(adminModelName, adminSchema);
+export const AdminModel =
+  mongoose.models.Admin || mongoose.model<IAdmin>(adminModelName, adminSchema);

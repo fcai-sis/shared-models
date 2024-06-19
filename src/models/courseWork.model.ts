@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import { courseModelName } from "./course.model";
+import { semesterModelName } from "./semester.model";
+import { foreignKey } from "../schema";
 
 export interface ICourseWork extends mongoose.Document {
   description: {
@@ -7,6 +9,7 @@ export interface ICourseWork extends mongoose.Document {
     en: string;
   };
   course: mongoose.Schema.Types.ObjectId;
+  semester: mongoose.Schema.Types.ObjectId;
   deadline: Date;
   grade: number;
 }
@@ -24,11 +27,8 @@ const courseWorkSchema = new mongoose.Schema<ICourseWork>({
       required: true,
     },
   },
-  course: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: courseModelName,
-    required: true,
-  },
+  course: foreignKey(courseModelName),
+  semester: foreignKey(semesterModelName),
   deadline: {
     type: Date,
     required: true,

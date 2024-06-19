@@ -1,26 +1,23 @@
 import mongoose from "mongoose";
+
 import { studentModelName } from "./student.model";
 import { semesterModelName } from "./semester.model";
+import { foreignKey } from "../schema";
+import { floatValidator, integerValidator } from "../validators";
+
+export const studentSemesterModelName = "StudentSemester";
 
 export interface IStudentSemester extends mongoose.Document {
-  studentId: mongoose.Schema.Types.ObjectId;
-  semesterId: mongoose.Schema.Types.ObjectId;
+  student: mongoose.Schema.Types.ObjectId;
+  semester: mongoose.Schema.Types.ObjectId;
   semesterDate: Date;
   cumulativeGpa: number;
   semesterLevel: number;
 }
 
 const studentSemesterSchema = new mongoose.Schema<IStudentSemester>({
-  studentId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: studentModelName,
-    required: true,
-  },
-  semesterId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: semesterModelName,
-    required: true,
-  },
+  student: foreignKey(studentModelName),
+  semester: foreignKey(semesterModelName),
   semesterDate: {
     type: Date,
     required: true,
@@ -28,14 +25,18 @@ const studentSemesterSchema = new mongoose.Schema<IStudentSemester>({
   cumulativeGpa: {
     type: Number,
     required: true,
+    validate: {
+      validator: (v: number) => floatValidator("Cumulative GPA", v),
+    },
   },
   semesterLevel: {
     type: Number,
     required: true,
+    validate: {
+      validator: (v: number) => integerValidator("Semester Level", v),
+    },
   },
 });
-
-export const studentSemesterModelName = "StudentSemester";
 
 export const StudentSemesterModel =
   mongoose.models.StudentSemester ||

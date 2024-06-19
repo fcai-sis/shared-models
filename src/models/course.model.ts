@@ -1,7 +1,21 @@
 import mongoose from "mongoose";
 
-import { departmentModelName } from "./department.model";
+export const courseModelName = "Course";
 
+/**
+ * Validates course codes.
+ *
+ * A course code must consist of 2-4 uppercase letters followed by 3 digits
+ *
+ * e.g. CS123, ANN443, CSIS101
+ * @param value The course code
+ * @returns Whether it is a valid course code or not
+ */
+export const courseCodeValidator = (value: string) =>
+  /^[A-Z]{2,4}\d{3}$/.test(value);
+
+export const CourseTypeEnum = ["MANDATORY", "ELECTIVE", "GRADUATION"] as const;
+export type CourseTypeEnumType = (typeof CourseTypeEnum)[number];
 export interface ICourse extends mongoose.Document {
   code: string;
   name: {
@@ -12,27 +26,18 @@ export interface ICourse extends mongoose.Document {
     ar: string;
     en: string;
   };
-  prerequisites: mongoose.Schema.Types.ObjectId[];
-  departments: mongoose.Schema.Types.ObjectId[];
   creditHours: number;
   courseType: CourseTypeEnumType;
 }
-
-export const courseModelName = "Course";
-
-export const CourseTypeEnum = ["mandatory", "elective", "graduation"] as const;
-export type CourseTypeEnumType = typeof CourseTypeEnum[number];
 
 const courseSchema = new mongoose.Schema<ICourse>({
   code: {
     type: String,
     required: true,
     unique: true,
-    match: [
-      // Course code must follow this pattern: 2-4 uppercase letters followed by 3 digits
-      /^[A-Z]{2,4}\d{3}$/,
-      "Invalid course code",
-    ],
+    validate: {
+      validator: courseCodeValidator,
+    },
   },
   name: {
     ar: {
@@ -53,17 +58,6 @@ const courseSchema = new mongoose.Schema<ICourse>({
       type: String,
       required: true,
     },
-  },
-  prerequisites: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: courseModelName,
-    },
-  ],
-  departments: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: departmentModelName,
-    required: true,
   },
   creditHours: {
     type: Number,
@@ -76,4 +70,6 @@ const courseSchema = new mongoose.Schema<ICourse>({
   },
 });
 
-export const CourseModel = mongoose.models.Course || mongoose.model<ICourse>(courseModelName, courseSchema);
+export const CourseModel =
+  mongoose.models.Course ||
+  mongoose.model<ICourse>(courseModelName, courseSchema);
