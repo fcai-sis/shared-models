@@ -40,7 +40,7 @@ const academicStudentSchema = new mongoose.Schema<IAcademicStudent>({
     validate: {
       validator: (v: number) => {
         integerValidator("Credit Hours", v);
-        betweenValidator("Credit Houts", v, 0, Infinity);
+        betweenValidator("Credit Hours", v, 0, Infinity);
       },
     },
   },

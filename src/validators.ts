@@ -33,7 +33,7 @@ export const betweenValidator = (
     `${field} must be between ${min} and ${max}`
   );
 
-export const emailValidtor = (field: string, value: string) => {
+export const emailValidator = (field: string, value: string) => {
   assert(
     /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value),
     `${field} must be a valid email`

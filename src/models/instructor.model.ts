@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 import { departmentModelName } from "./department.model";
 import { userModelName } from "./user.model";
-import { emailValidtor } from "../validators";
+import { emailValidator } from "../validators";
 import { foreignKey } from "../schema";
 
 export const instructorModelName = "Instructor";
@@ -21,7 +21,7 @@ const instructorSchema = new mongoose.Schema<IInstructor>({
     required: true,
     unique: true,
     validate: {
-      validator: (v: string) => emailValidtor("Instructor Email", v),
+      validator: (v: string) => emailValidator("Instructor Email", v),
     },
   },
   department: foreignKey(departmentModelName),

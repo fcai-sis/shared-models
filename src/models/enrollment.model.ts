@@ -35,7 +35,7 @@ export const enrollmentSchema = new mongoose.Schema<IEnrollment>({
   status: {
     type: String,
     enum: EnrollmentStatusEnum,
-    required: true,
+    default: EnrollmentStatusEnum[0],
   },
   exam: {
     seatNumber: {
