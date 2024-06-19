@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+import { integerValidator } from "../validators";
+
+export const slotModelName = "Slot";
+
 export interface ISlot extends mongoose.Document {
   startTime: {
     hour: number;
@@ -9,21 +13,71 @@ export interface ISlot extends mongoose.Document {
     hour: number;
     minute: number;
   };
-  day: number;
+  day: DayEnumType;
 }
+
+export const DayEnum = [
+  "SUNDAY",
+  "MONDAY",
+  "TUESDAY",
+  "WEDNESDAY",
+  "THURSDAY",
+  "FRIDAY",
+  "SATURDAY",
+] as const;
+export type DayEnumType = (typeof DayEnum)[number];
 
 const slotSchema = new mongoose.Schema<ISlot>({
   startTime: {
-    hour: { type: Number, required: true, min: 0, max: 23 },
-    minute: { type: Number, required: true, min: 0, max: 59 },
+    hour: {
+      type: Number,
+      required: true,
+      validate: {
+        validator: (v: number) => {
+          integerValidator("Start Time Hour", v);
+          return v >= 0 && v <= 23;
+        },
+      },
+    },
+    minute: {
+      type: Number,
+      required: true,
+      validate: {
+        validator: (v: number) => {
+          integerValidator("Start Time Minute", v);
+          return v >= 0 && v <= 59;
+        },
+      },
+    },
   },
   endTime: {
-    hour: { type: Number, required: true, min: 0, max: 23 },
-    minute: { type: Number, required: true, min: 0, max: 59 },
+    hour: {
+      type: Number,
+      required: true,
+      validate: {
+        validator: (v: number) => {
+          integerValidator("End Time Hour", v);
+          return v >= 0 && v <= 23;
+        },
+      },
+    },
+    minute: {
+      type: Number,
+      required: true,
+      validate: {
+        validator: (v: number) => {
+          integerValidator("End Time Minute", v);
+          return v >= 0 && v <= 59;
+        },
+      },
+    },
   },
-  day: { type: Number, required: true, min: 0, max: 6 },
+  day: {
+    type: String,
+    enum: DayEnum,
+    required: true,
+  },
 });
 
-export const slotModelName = "Slot";
-
-export const Slot = mongoose.models.Slot || mongoose.model<ISlot>(slotModelName, slotSchema);
+export const Slot =
+  mongoose.models.Slot || mongoose.model<ISlot>(slotModelName, slotSchema);

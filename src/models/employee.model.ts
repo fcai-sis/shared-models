@@ -1,11 +1,15 @@
 import mongoose from "mongoose";
 import { userModelName } from "./user.model";
+import { emailValidtor } from "../validators";
+import { foreignKey } from "../schema";
+
+export const employeeModelName = "Employee";
 
 export interface IEmployee extends mongoose.Document {
   fullName: string;
   username: string;
   email: string;
-  userId: mongoose.Schema.Types.ObjectId;
+  user: mongoose.Schema.Types.ObjectId;
 }
 
 const employeeSchema = new mongoose.Schema<IEmployee>({
@@ -15,18 +19,13 @@ const employeeSchema = new mongoose.Schema<IEmployee>({
     type: String,
     required: true,
     unique: true,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Please fill a valid email address",
-    ],
+    validate: {
+      validator: (v: string) => emailValidtor("Employee Email", v),
+    },
   },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: userModelName,
-    required: true,
-  },
+  user: foreignKey(userModelName),
 });
 
-export const employeeModelName = "Employee";
-
-export const EmployeeModel = mongoose.models.Employee || mongoose.model<IEmployee>(employeeModelName, employeeSchema);
+export const EmployeeModel =
+  mongoose.models.Employee ||
+  mongoose.model<IEmployee>(employeeModelName, employeeSchema);

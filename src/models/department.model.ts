@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import { betweenValidator, integerValidator } from "../validators";
+
+export const departmentModelName = "Department";
 
 export interface IDepartment extends mongoose.Document {
   code: string;
@@ -11,7 +14,7 @@ export interface IDepartment extends mongoose.Document {
 }
 
 export const ProgramEnum = ["GENERAL", "CREDIT"] as const;
-export type ProgramEnumType = typeof ProgramEnum[number];
+export type ProgramEnumType = (typeof ProgramEnum)[number];
 
 const departmentSchema = new mongoose.Schema<IDepartment>({
   code: {
@@ -32,6 +35,13 @@ const departmentSchema = new mongoose.Schema<IDepartment>({
   capacity: {
     type: Number,
     required: true,
+    validate: {
+      validator: (v: number) => {
+        const fieldName = "Department Capacity";
+        integerValidator(fieldName, v);
+        betweenValidator(fieldName, v, 1, Infinity);
+      },
+    },
   },
   program: {
     type: String,
@@ -40,8 +50,6 @@ const departmentSchema = new mongoose.Schema<IDepartment>({
     default: ProgramEnum[0],
   },
 });
-
-export const departmentModelName = "Department";
 
 export const DepartmentModel =
   mongoose.models.Department ||

@@ -1,38 +1,38 @@
 import mongoose from "mongoose";
+
 import { departmentModelName } from "./department.model";
 import { userModelName } from "./user.model";
+import { arabicValidator, emailValidtor } from "../validators";
+import { foreignKey } from "../schema";
+
+export const teachingAssistantModelName = "TeachingAssistant";
 
 export interface ITeachingAssistant extends mongoose.Document {
   fullName: string;
   email: string;
-  department: string;
-  userId: mongoose.Schema.Types.ObjectId;
+  department: mongoose.Schema.Types.ObjectId;
+  user: mongoose.Schema.Types.ObjectId;
 }
 
-const teachingAssistantSchema = new mongoose.Schema({
-  fullName: { type: String, required: true },
+const teachingAssistantSchema = new mongoose.Schema<ITeachingAssistant>({
+  fullName: {
+    type: String,
+    required: true,
+    validate: {
+      validator: (v: string) => arabicValidator("Full Name", v),
+    },
+  },
   email: {
     type: String,
     required: true,
     unique: true,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Please fill a valid email address",
-    ],
+    validate: {
+      validator: (v: string) => emailValidtor("TA Email", v),
+    },
   },
-  department: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: departmentModelName,
-    required: true,
-  },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: userModelName,
-    required: true,
-  },
+  department: foreignKey(departmentModelName),
+  user: foreignKey(userModelName),
 });
-
-export const teachingAssistantModelName = "TeachingAssistant";
 
 export const TeachingAssistantModel =
   mongoose.models.TeachingAssistant ||

@@ -4,72 +4,63 @@ import { hallModelName } from "./hall.model";
 import { courseModelName } from "./course.model";
 import { studentModelName } from "./student.model";
 import { semesterModelName } from "./semester.model";
+import { integerValidator } from "../validators";
+import { foreignKey } from "../schema";
+
+export const enrollmentModelName = "Enrollment";
 
 export interface IEnrollment extends mongoose.Document {
-  studentId: mongoose.Schema.Types.ObjectId;
-  semesterId: mongoose.Schema.Types.ObjectId;
-  courseId: mongoose.Schema.Types.ObjectId;
-  status: EnrollmentStatus;
-  seatNumber: number | null;
-  examHall: mongoose.Schema.Types.ObjectId | null;
+  student: mongoose.Schema.Types.ObjectId;
+  semester: mongoose.Schema.Types.ObjectId;
+  course: mongoose.Schema.Types.ObjectId;
+  status: EnrollmentStatusEnumType;
+  exam: {
+    seatNumber?: number;
+    hall?: mongoose.Schema.Types.ObjectId;
+  };
+  grades: {
+    finalExam?: number;
+    termWork?: number;
+  };
 }
 
-const EnrollmentStatusEnum = ["enrolled", "passed", "failed"] as const;
-export type EnrollmentStatus = (typeof EnrollmentStatusEnum)[number];
+const EnrollmentStatusEnum = ["ENROLLED", "PASSED", "FAILED"] as const;
+export type EnrollmentStatusEnumType = (typeof EnrollmentStatusEnum)[number];
 
 // Each row in the enrollment collection represents a student's enrollments throughout the years
-export const enrollmentSchema = new mongoose.Schema({
-  studentId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: studentModelName,
-    required: true,
-  },
-  semesterId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: semesterModelName,
-    required: true,
-  },
-  courseId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: courseModelName,
-    required: true,
-  },
+export const enrollmentSchema = new mongoose.Schema<IEnrollment>({
+  student: foreignKey(studentModelName),
+  semester: foreignKey(semesterModelName),
+  course: foreignKey(courseModelName),
   status: {
     type: String,
     enum: EnrollmentStatusEnum,
-    default: "enrolled",
+    required: true,
   },
-  scores: {
-    type: [
-      {
-        description: {
-          type: String,
-          required: true,
-        },
-        score: {
-          type: Number,
-          required: true,
-        },
+  exam: {
+    seatNumber: {
+      type: Number,
+      validate: {
+        validator: (v: number) => integerValidator("Seat Number", v),
       },
-    ],
-    default: [],
+    },
+    hall: foreignKey(hallModelName, false),
   },
-  finalExamScore: {
-    type: Number,
-    default: null,
-  },
-  seatNumber: {
-    type: Number,
-    default: null,
-  },
-  examHall: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: hallModelName,
-    default: null,
+  grades: {
+    finalExam: {
+      type: Number,
+      validate: {
+        validator: (v: number) => integerValidator("Final Exam Grade", v),
+      },
+    },
+    termWork: {
+      type: Number,
+      validate: {
+        validator: (v: number) => integerValidator("Term Work Grade", v),
+      },
+    },
   },
 });
-
-export const enrollmentModelName = "Enrollment";
 
 export const EnrollmentModel =
   mongoose.models.Enrollment ||

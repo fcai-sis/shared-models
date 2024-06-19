@@ -1,65 +1,23 @@
 import mongoose from "mongoose";
-import { ForeignKeyNotFound } from "@fcai-sis/shared-utilities";
+
 import { courseModelName } from "./course.model";
 import { teachingAssistantModelName } from "./ta.model";
 import { semesterModelName } from "./semester.model";
-import { SectionModel, sectionModelName } from "./section.model";
-
-export interface ITaTeaching extends mongoose.Document {
-  taId: mongoose.Schema.Types.ObjectId;
-  courseId: mongoose.Schema.Types.ObjectId;
-  semesterId: mongoose.Schema.Types.ObjectId;
-}
-
-const taTeachingSchema = new mongoose.Schema({
-  taId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: teachingAssistantModelName,
-    required: true,
-  },
-  courseId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: courseModelName,
-    required: true,
-  },
-  semesterId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: semesterModelName,
-    required: true,
-  },
-});
-
-// Pre-save hook to ensure referential integrity
-taTeachingSchema.pre("save", async function (next) {
-  try {
-    const ta = await mongoose
-      .model(teachingAssistantModelName)
-      .findById(this.taId);
-    if (!ta) {
-      throw new ForeignKeyNotFound("TA not found");
-    }
-
-    const course = await mongoose
-      .model(courseModelName)
-      .findById(this.courseId);
-    if (!course) {
-      throw new ForeignKeyNotFound("Course not found");
-    }
-
-    const semester = await mongoose
-      .model(semesterModelName)
-      .findById(this.semesterId);
-    if (!semester) {
-      throw new ForeignKeyNotFound("Semester not found");
-    }
-
-    next();
-  } catch (error: any) {
-    return next(error);
-  }
-});
+import { foreignKey } from "schema";
 
 export const taTeachingModelName = "TaTeaching";
+
+export interface ITaTeaching extends mongoose.Document {
+  ta: mongoose.Schema.Types.ObjectId;
+  course: mongoose.Schema.Types.ObjectId;
+  semester: mongoose.Schema.Types.ObjectId;
+}
+
+const taTeachingSchema = new mongoose.Schema<ITaTeaching>({
+  ta: foreignKey(teachingAssistantModelName),
+  course: foreignKey(courseModelName),
+  semester: foreignKey(semesterModelName),
+});
 
 export const TaTeachingModel =
   mongoose.models.TaTeaching ||
