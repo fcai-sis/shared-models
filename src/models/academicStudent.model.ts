@@ -29,9 +29,6 @@ const academicStudentSchema = new mongoose.Schema<IAcademicStudent>({
   currentGpa: {
     type: Number,
     default: 4.0,
-    validate: {
-      validator: (v: number) => floatValidator("Current GPA", v),
-    },
   },
   currentLevel: {
     type: Number,
