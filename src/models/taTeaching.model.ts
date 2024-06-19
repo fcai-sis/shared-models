@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { courseModelName } from "./course.model";
 import { teachingAssistantModelName } from "./ta.model";
 import { semesterModelName } from "./semester.model";
-import { foreignKey } from "schema";
+import { foreignKey } from "../schema";
 
 export const taTeachingModelName = "TaTeaching";
 

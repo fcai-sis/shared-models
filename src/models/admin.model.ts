@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 import { userModelName } from "./user.model";
 import { emailValidator } from "../validators";
-import { foreignKey } from "schema";
+import { foreignKey } from "../schema";
 
 export const adminModelName = "Admin";
 
