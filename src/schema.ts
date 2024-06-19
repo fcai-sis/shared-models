@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { referentialIntegrityValidator } from "validators";
+import { referentialIntegrityValidator } from "./validators";
 
 /**
  * A function to create a foreign key schema for a model.
