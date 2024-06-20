@@ -17,6 +17,7 @@ export interface IEnrollment extends mongoose.Document {
   semester: mongoose.Schema.Types.ObjectId;
   course: mongoose.Schema.Types.ObjectId;
   status: EnrollmentStatusEnumType;
+  group?: Number;
   exam: {
     seatNumber?: number;
     hall?: mongoose.Schema.Types.ObjectId;
@@ -38,6 +39,12 @@ export const enrollmentSchema = new mongoose.Schema<IEnrollment>({
     type: String,
     enum: EnrollmentStatusEnum,
     default: EnrollmentStatusEnum[0],
+  },
+  group: {
+    type: Number,
+    validate: {
+      validator: (v: number) => integerValidator("Group", v),
+    },
   },
   exam: {
     seatNumber: {
