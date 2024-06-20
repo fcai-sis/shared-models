@@ -9,7 +9,7 @@ import { foreignKey } from "../schema";
 
 export const enrollmentModelName = "Enrollment";
 
-const EnrollmentStatusEnum = ["ENROLLED", "PASSED", "FAILED"] as const;
+export const EnrollmentStatusEnum = ["ENROLLED", "PASSED", "FAILED"] as const;
 export type EnrollmentStatusEnumType = (typeof EnrollmentStatusEnum)[number];
 
 export interface IEnrollment extends mongoose.Document {
