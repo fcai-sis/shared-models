@@ -12,6 +12,8 @@ export interface ITeachingAssistant extends mongoose.Document {
   email: string;
   department: mongoose.Schema.Types.ObjectId;
   user: mongoose.Schema.Types.ObjectId;
+  // office hours field text field nullable
+  officeHours?: string;
 }
 
 export type TeachingAssistantType = Omit<
@@ -37,6 +39,10 @@ const teachingAssistantSchema = new mongoose.Schema<ITeachingAssistant>({
   },
   department: foreignKey(departmentModelName),
   user: foreignKey(userModelName),
+  officeHours: {
+    type: String,
+    default: null,
+  },
 });
 
 export const TeachingAssistantModel =
