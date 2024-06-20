@@ -9,7 +9,7 @@ import { foreignKey } from "../schema";
 export const sectionModelName = "Section";
 
 export interface ISection extends mongoose.Document {
-  groupName: string;
+  groupName: Number;
   scheduleId: mongoose.Schema.Types.ObjectId;
   hallId: mongoose.Schema.Types.ObjectId;
   slotId: mongoose.Schema.Types.ObjectId;
@@ -20,7 +20,7 @@ export type SectionType = Omit<ISection, keyof mongoose.Document>;
 
 const sectionSchema = new mongoose.Schema({
   groupName: {
-    type: String,
+    type: Number,
     required: true,
   },
   schedule: foreignKey(scheduleModelName),
