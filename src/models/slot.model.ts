@@ -81,5 +81,5 @@ const slotSchema = new mongoose.Schema<ISlot>({
   },
 });
 
-export const Slot =
+export const SlotModel =
   mongoose.models.Slot || mongoose.model<ISlot>(slotModelName, slotSchema);

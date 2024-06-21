@@ -27,5 +27,5 @@ const hallSchema = new mongoose.Schema<IHall>({
   },
 });
 
-export const Hall =
+export const HallModel =
   mongoose.models.Hall || mongoose.model<IHall>(hallModelName, hallSchema);
