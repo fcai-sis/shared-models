@@ -19,6 +19,7 @@ export * from "./models/lecture.model";
 export * from "./models/section.model";
 export * from "./models/semester.model";
 export * from "./models/semesterCourse.model";
+export * from "./models/serviceRequest.model";
 export * from "./models/schedule.model";
 export * from "./models/slot.model";
 export * from "./models/student.model";
