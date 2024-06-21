@@ -56,7 +56,9 @@ const serviceRequestSchema = new mongoose.Schema<IServiceRequest>({
   },
 });
 
-export const ServiceRequestModel = mongoose.model<IServiceRequest>(
-  serviceRequestModelName,
-  serviceRequestSchema
-);
+export const ServiceRequestModel =
+  mongoose.models.ServiceRequest ||
+  mongoose.model<IServiceRequest>(
+    serviceRequestModelName,
+    serviceRequestSchema
+  );
