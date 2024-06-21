@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { foreignKey } from "schema";
 import { employeeModelName } from "./employee.model";
-import { betweenValidator } from "validators";
+import { betweenValidator } from "../validators";
+import { foreignKey } from "../schema";
 
 export const announcementModelName = "Announcement";
 
