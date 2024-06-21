@@ -3,6 +3,7 @@ export * from "./validators";
 
 export * from "./models/academicStudent.model";
 export * from "./models/admin.model";
+export * from "./models/announcement.model";
 export * from "./models/course.model";
 export * from "./models/courseDepartment.model";
 export * from "./models/coursePrerequisite.model";
