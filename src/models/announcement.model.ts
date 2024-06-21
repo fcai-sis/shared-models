@@ -24,6 +24,8 @@ export interface IAnnouncement {
   archived: boolean;
 }
 
+export type AnnouncementType = Omit<IAnnouncement, keyof mongoose.Document>;
+
 const announcementSchema = new mongoose.Schema<IAnnouncement>({
   author: foreignKey(employeeModelName),
   title: {
