@@ -8,6 +8,7 @@ import {
   integerValidator,
   numericStringValidator,
 } from "../validators";
+import { bylawModelName } from "./bylaw.model";
 
 export const studentModelName = "Student";
 
@@ -42,6 +43,7 @@ export interface IStudent extends mongoose.Document {
   nationality: NationalityEnumType;
   address: string;
   user: mongoose.Schema.Types.ObjectId;
+  bylaw: mongoose.Schema.Types.ObjectId;
 }
 
 export type StudentType = Omit<IStudent, keyof mongoose.Document>;
@@ -175,6 +177,7 @@ const studentSchema = new mongoose.Schema<IStudent>({
     required: [true, "Address is required"],
   },
   user: foreignKey(userModelName),
+  bylaw: foreignKey(bylawModelName),
 });
 
 export const StudentModel =
