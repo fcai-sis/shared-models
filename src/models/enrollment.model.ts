@@ -26,6 +26,7 @@ export interface IEnrollment extends mongoose.Document {
     finalExam?: number;
     termWork?: number;
   };
+  enrollmentMark?: string;
 }
 
 export type EnrollmentType = Omit<IEnrollment, keyof mongoose.Document>;
@@ -68,6 +69,10 @@ export const enrollmentSchema = new mongoose.Schema<IEnrollment>({
         validator: (v: number) => integerValidator("Term Work Grade", v),
       },
     },
+  },
+  enrollmentMark: {
+    type: String,
+    default: null,
   },
 });
 
