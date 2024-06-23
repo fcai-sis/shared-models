@@ -10,10 +10,10 @@ export const sectionModelName = "Section";
 
 export interface ISection extends mongoose.Document {
   groupName: Number;
-  scheduleId: mongoose.Schema.Types.ObjectId;
-  hallId: mongoose.Schema.Types.ObjectId;
-  slotId: mongoose.Schema.Types.ObjectId;
-  teachingId: mongoose.Schema.Types.ObjectId;
+  schedule: mongoose.Schema.Types.ObjectId;
+  hall: mongoose.Schema.Types.ObjectId;
+  slot: mongoose.Schema.Types.ObjectId;
+  taTeaching: mongoose.Schema.Types.ObjectId;
 }
 
 export type SectionType = Omit<ISection, keyof mongoose.Document>;
