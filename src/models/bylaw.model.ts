@@ -42,8 +42,41 @@ export interface IByLaw extends mongoose.Document {
 
 export type ByLawType = Omit<IByLaw, keyof mongoose.Document>;
 
-const gradeWeightValidator = (val: number) => {
-  return val >= 0 && val <= 6;
+const gradeWeightValidator = function (this: any, val: number) {
+  const parent = this.parent();
+  const gpaScale = parent.gpaScale;
+  return val >= 0 && val <= gpaScale;
+};
+
+const gradeValidationFunction = async (gradeWeights: Map<string, any>) => {
+  const ranges = [];
+
+  for (let [_, value] of gradeWeights) {
+    ranges.push({ min: value.percentage.min, max: value.percentage.max });
+  }
+
+  // Sort ranges by min value
+  ranges.sort((a, b) => a.min - b.min);
+
+  // Check for overlaps
+  for (let i = 1; i < ranges.length; i++) {
+    if (ranges[i].min <= ranges[i - 1].max) {
+      return false; // Overlap found
+    }
+  }
+
+  // Ensure the entire range from 0 to 100 is covered
+  if (ranges[0].min !== 0 || ranges[ranges.length - 1].max !== 100) {
+    return false; // Coverage gap found
+  }
+
+  for (let i = 1; i < ranges.length; i++) {
+    if (ranges[i].min !== ranges[i - 1].max + 1) {
+      return false; // Gap found
+    }
+  }
+
+  return true;
 };
 
 const departmentCodeValidator = async (map: Map<string, any>) => {
@@ -64,7 +97,10 @@ const gradeSchema = new mongoose.Schema<IGrade>(
   {
     weight: {
       type: Number,
-      validate: [gradeWeightValidator, "Grade weights must be between 0 and 6"],
+      validate: [
+        gradeWeightValidator,
+        "Grade weights must be between 0 and the GPA scale",
+      ],
       required: true,
     },
     percentage: {
@@ -158,6 +194,11 @@ export const bylawSchema = new mongoose.Schema<IByLaw>(
       type: Map,
       of: gradeSchema,
       required: true,
+      validate: {
+        validator: gradeValidationFunction,
+        message:
+          "Grade ranges must not overlap and must cover the entire range from 0 to 100",
+      },
     },
     gpaScale: {
       type: Number,
