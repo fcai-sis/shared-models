@@ -4,7 +4,6 @@ import { studentModelName } from "./student.model";
 import { semesterModelName } from "./semester.model";
 import { foreignKey } from "../schema";
 import { floatValidator, integerValidator } from "../validators";
-import { departmentModelName } from "./department.model";
 
 export const studentSemesterModelName = "StudentSemester";
 
