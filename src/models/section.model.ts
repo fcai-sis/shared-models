@@ -9,7 +9,7 @@ import { semesterModelName } from "./semester.model";
 export const sectionModelName = "Section";
 
 export interface ISection extends mongoose.Document {
-  groupName: string;
+  group: string;
   hall: mongoose.Schema.Types.ObjectId;
   slot: mongoose.Schema.Types.ObjectId;
   course: mongoose.Schema.Types.ObjectId;
@@ -19,7 +19,7 @@ export interface ISection extends mongoose.Document {
 export type SectionType = Omit<ISection, keyof mongoose.Document>;
 
 const sectionSchema = new mongoose.Schema({
-  groupName: {
+  group: {
     type: String,
     required: true,
   },
