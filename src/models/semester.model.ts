@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-import { betweenValidator, integerValidator } from "../validators";
-
 export const semesterModelName = "Semester";
 
 export const SemesterSeasonEnum = [

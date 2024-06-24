@@ -28,4 +28,5 @@ const hallSchema = new mongoose.Schema<IHall>({
 });
 
 export const HallModel =
-  mongoose.models.Hall || mongoose.model<IHall>(hallModelName, hallSchema);
+  mongoose.models[hallModelName] ||
+  mongoose.model<IHall>(hallModelName, hallSchema);

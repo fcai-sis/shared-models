@@ -16,11 +16,11 @@ export const DayEnum = [
 export type DayEnumType = (typeof DayEnum)[number];
 
 export interface ISlot extends mongoose.Document {
-  startTime: {
+  start: {
     hour: number;
     minute: number;
   };
-  endTime: {
+  end: {
     hour: number;
     minute: number;
   };
@@ -30,7 +30,7 @@ export interface ISlot extends mongoose.Document {
 export type SlotType = Omit<ISlot, keyof mongoose.Document>;
 
 const slotSchema = new mongoose.Schema<ISlot>({
-  startTime: {
+  start: {
     hour: {
       type: Number,
       required: true,
@@ -52,7 +52,7 @@ const slotSchema = new mongoose.Schema<ISlot>({
       },
     },
   },
-  endTime: {
+  end: {
     hour: {
       type: Number,
       required: true,
@@ -82,4 +82,5 @@ const slotSchema = new mongoose.Schema<ISlot>({
 });
 
 export const SlotModel =
-  mongoose.models.Slot || mongoose.model<ISlot>(slotModelName, slotSchema);
+  mongoose.models[slotModelName] ||
+  mongoose.model<ISlot>(slotModelName, slotSchema);
