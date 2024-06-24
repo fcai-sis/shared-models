@@ -13,6 +13,7 @@ export type SemesterSeason = (typeof SemesterSeasonEnum)[number];
 export interface ISemester extends mongoose.Document {
   season: SemesterSeason;
   createdAt: Date;
+  endedAt?: Date;
 }
 
 export type SemesterType = Omit<ISemester, keyof mongoose.Document>;
@@ -28,6 +29,10 @@ const semesterSchema = new mongoose.Schema<ISemester>({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  endedAt: {
+    type: Date,
+    default: null,
   },
 });
 
