@@ -2,31 +2,31 @@ import mongoose from "mongoose";
 
 import { hallModelName } from "./hall.model";
 import { slotModelName } from "./slot.model";
-import { scheduleModelName } from "./schedule.model";
-import { taTeachingModelName } from "./taTeaching.model";
 import { foreignKey } from "../schema";
+import { courseModelName } from "./course.model";
+import { semesterModelName } from "./semester.model";
 
 export const sectionModelName = "Section";
 
 export interface ISection extends mongoose.Document {
-  groupName: Number;
-  schedule: mongoose.Schema.Types.ObjectId;
+  groupName: string;
   hall: mongoose.Schema.Types.ObjectId;
   slot: mongoose.Schema.Types.ObjectId;
-  taTeaching: mongoose.Schema.Types.ObjectId;
+  course: mongoose.Schema.Types.ObjectId;
+  semester: mongoose.Schema.Types.ObjectId;
 }
 
 export type SectionType = Omit<ISection, keyof mongoose.Document>;
 
 const sectionSchema = new mongoose.Schema({
   groupName: {
-    type: Number,
+    type: String,
     required: true,
   },
-  schedule: foreignKey(scheduleModelName),
   hall: foreignKey(hallModelName),
   slot: foreignKey(slotModelName),
-  taTeaching: foreignKey(taTeachingModelName),
+  course: foreignKey(courseModelName),
+  semester: foreignKey(semesterModelName),
 });
 
 export const SectionModel =
