@@ -48,7 +48,7 @@ export interface IStudent extends mongoose.Document {
 
 export type StudentType = Omit<IStudent, keyof mongoose.Document>;
 
-const studentSchema = new mongoose.Schema<IStudent>({
+export const studentSchema = new mongoose.Schema<IStudent>({
   studentId: {
     type: String,
     required: [true, "Student ID is required"],
