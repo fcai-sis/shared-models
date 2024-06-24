@@ -20,11 +20,10 @@ export * from "./models/section.model";
 export * from "./models/semester.model";
 export * from "./models/semesterCourse.model";
 export * from "./models/serviceRequest.model";
-export * from "./models/schedule.model";
 export * from "./models/slot.model";
 export * from "./models/student.model";
 export * from "./models/studentSemester.model";
 export * from "./models/ta.model";
 export * from "./models/taTeaching.model";
 export * from "./models/user.model";
-export * from "./models/bylaw.model"
+export * from "./models/bylaw.model";
