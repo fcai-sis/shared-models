@@ -14,7 +14,6 @@ export interface IStudentSemester extends mongoose.Document {
   semesterDate: Date;
   cumulativeGpa: number;
   semesterLevel: number;
-  semesterDepartment?: mongoose.Schema.Types.ObjectId;
 }
 
 export type StudentSemesterType = Omit<
@@ -43,7 +42,6 @@ const studentSemesterSchema = new mongoose.Schema<IStudentSemester>({
       validator: (v: number) => integerValidator("Semester Level", v),
     },
   },
-  semesterDepartment: foreignKey(departmentModelName, false),
 });
 
 export const StudentSemesterModel =
