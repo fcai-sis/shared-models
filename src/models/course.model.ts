@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { LocalizedEnum, LocalizedFields } from "../schema";
 
 export const courseModelName = "Course";
 
@@ -76,3 +77,41 @@ const courseSchema = new mongoose.Schema<ICourse>({
 export const CourseModel =
   mongoose.models.Course ||
   mongoose.model<ICourse>(courseModelName, courseSchema);
+
+export const courseLocalizedFields: LocalizedFields<CourseType> = {
+  name: {
+    ar: "اسم المقرر",
+    en: "Course Name",
+  },
+  description: {
+    ar: "وصف المقرر",
+    en: "Course Description",
+  },
+  code: {
+    ar: "كود المقرر",
+    en: "Course Code",
+  },
+  creditHours: {
+    ar: "الساعات المعتمدة",
+    en: "Credit Hours",
+  },
+  courseType: {
+    ar: "نوع المقرر",
+    en: "Course Type",
+  },
+};
+
+export const courseTypeLocalizedEnum: LocalizedEnum<CourseTypeEnumType> = {
+  MANDATORY: {
+    ar: "إلزامي",
+    en: "Mandatory",
+  },
+  ELECTIVE: {
+    ar: "اختياري",
+    en: "Elective",
+  },
+  GRADUATION: {
+    ar: "تخرج",
+    en: "Graduation",
+  },
+};

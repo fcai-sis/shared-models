@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { userModelName } from "./user.model";
 import { emailValidator } from "../validators";
-import { foreignKey } from "../schema";
+import { LocalizedFields, foreignKey } from "../schema";
 
 export const employeeModelName = "Employee";
 
@@ -31,3 +31,11 @@ const employeeSchema = new mongoose.Schema<IEmployee>({
 export const EmployeeModel =
   mongoose.models.Employee ||
   mongoose.model<IEmployee>(employeeModelName, employeeSchema);
+
+export const employeeLocalizedFields: LocalizedFields<
+  Omit<EmployeeType, "user">
+> = {
+  fullName: { ar: "الاسم الكامل", en: "Full Name" },
+  username: { ar: "اسم المستخدم", en: "Username" },
+  email: { ar: "البريد الإلكتروني", en: "Email" },
+};

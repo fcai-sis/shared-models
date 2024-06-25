@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import { betweenValidator, integerValidator } from "../validators";
+import { LocalizedEnum, LocalizedFields } from "../schema";
 
 export const departmentModelName = "Department";
 
-export const ProgramEnum = ["GENERAL", "CREDIT"] as const;
+export const ProgramEnum = ["GENERAL", "SPECIAL"] as const;
 export type ProgramEnumType = (typeof ProgramEnum)[number];
 
 export interface IDepartment extends mongoose.Document {
@@ -56,3 +57,33 @@ const departmentSchema = new mongoose.Schema<IDepartment>({
 export const DepartmentModel =
   mongoose.models.Department ||
   mongoose.model<IDepartment>(departmentModelName, departmentSchema);
+
+export const departmentLocalizedFields: LocalizedFields<DepartmentType> = {
+  code: {
+    ar: "الكود",
+    en: "Code",
+  },
+  name: {
+    ar: "الاسم",
+    en: "Name",
+  },
+  capacity: {
+    ar: "السعة",
+    en: "Capacity",
+  },
+  program: {
+    ar: "البرنامج",
+    en: "Program",
+  },
+};
+
+export const departmentProgramLocalizedEnum: LocalizedEnum<ProgramEnumType> = {
+  GENERAL: {
+    ar: "عام",
+    en: "General",
+  },
+  SPECIAL: {
+    ar: "خاص",
+    en: "Special",
+  },
+};

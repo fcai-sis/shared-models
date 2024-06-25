@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { integerValidator } from "../validators";
+import { LocalizedFields } from "../schema";
 
 export const hallModelName = "Hall";
 
@@ -30,3 +31,8 @@ const hallSchema = new mongoose.Schema<IHall>({
 export const HallModel =
   mongoose.models[hallModelName] ||
   mongoose.model<IHall>(hallModelName, hallSchema);
+
+export const hallLocalizedFields: LocalizedFields<HallType> = {
+  name: { ar: "الاسم", en: "Name" },
+  capacity: { ar: "السعة", en: "Capacity" },
+};

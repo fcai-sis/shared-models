@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import { integerValidator } from "../validators";
+import { LocalizedEnum } from "../schema";
 
 export const slotModelName = "Slot";
 
@@ -84,3 +85,13 @@ const slotSchema = new mongoose.Schema<ISlot>({
 export const SlotModel =
   mongoose.models[slotModelName] ||
   mongoose.model<ISlot>(slotModelName, slotSchema);
+
+export const dayLocalizedEnum: LocalizedEnum<DayEnumType> = {
+  SUNDAY: { ar: "الأحد", en: "Sunday" },
+  MONDAY: { ar: "الاثنين", en: "Monday" },
+  TUESDAY: { ar: "الثلاثاء", en: "Tuesday" },
+  WEDNESDAY: { ar: "الأربعاء", en: "Wednesday" },
+  THURSDAY: { ar: "الخميس", en: "Thursday" },
+  FRIDAY: { ar: "الجمعة", en: "Friday" },
+  SATURDAY: { ar: "السبت", en: "Saturday" },
+};

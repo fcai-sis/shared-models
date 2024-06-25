@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { departmentModelName } from "./department.model";
 import { userModelName } from "./user.model";
 import { arabicValidator, emailValidator } from "../validators";
-import { foreignKey } from "../schema";
+import { foreignKey, LocalizedFields } from "../schema";
 
 export const teachingAssistantModelName = "TeachingAssistant";
 
@@ -12,7 +12,6 @@ export interface ITeachingAssistant extends mongoose.Document {
   email: string;
   department: mongoose.Schema.Types.ObjectId;
   user: mongoose.Schema.Types.ObjectId;
-  // office hours field text field nullable
   officeHours?: string;
 }
 
@@ -51,3 +50,12 @@ export const TeachingAssistantModel =
     teachingAssistantModelName,
     teachingAssistantSchema
   );
+
+export const teachingAssistantLocalizedFields: LocalizedFields<
+  Omit<TeachingAssistantType, "user">
+> = {
+  fullName: { ar: "الاسم الكامل", en: "Full Name" },
+  email: { ar: "البريد الإلكتروني", en: "Email" },
+  department: { ar: "القسم", en: "Department" },
+  officeHours: { ar: "ساعات الدوام", en: "Office Hours" },
+};

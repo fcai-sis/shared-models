@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 import { userModelName } from "./user.model";
-import { foreignKey } from "../schema";
+import { LocalizedFields, foreignKey } from "../schema";
 import {
   arabicValidator,
   betweenValidator,
@@ -184,9 +184,9 @@ export const StudentModel =
   mongoose.models.Student ||
   mongoose.model<IStudent>(studentModelName, studentSchema);
 
-export const studentLocalizedFields: {
-  [key in keyof Omit<StudentType, "user">]: { ar: string; en: string };
-} = {
+export const studentLocalizedFields: LocalizedFields<
+  Omit<StudentType, "user">
+> = {
   address: {
     ar: "العنوان",
     en: "Address",

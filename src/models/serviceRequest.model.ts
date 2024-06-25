@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { foreignKey } from "../schema";
+import { LocalizedEnum, LocalizedFields, foreignKey } from "../schema";
 import { studentModelName } from "./student.model";
 
 const serviceRequestModelName = "ServiceRequest";
@@ -62,3 +62,55 @@ export const ServiceRequestModel =
     serviceRequestModelName,
     serviceRequestSchema
   );
+
+export const serviceRequestLocalizedFields: LocalizedFields<ServiceRequestType> =
+  {
+    serviceName: {
+      ar: "اسم الخدمة",
+      en: "Service Name",
+    },
+    status: {
+      ar: "الحالة",
+      en: "Status",
+    },
+    student: {
+      ar: "الطالب",
+      en: "Student",
+    },
+    message: {
+      ar: "الرسالة",
+      en: "Message",
+    },
+    createdAt: {
+      ar: "تاريخ الإنشاء",
+      en: "Created At",
+    },
+    claimAt: {
+      ar: "تاريخ الإستلام",
+      en: "Claimed At",
+    },
+    image: {
+      ar: "الصورة",
+      en: "Image",
+    },
+  };
+
+export const serviceRequestStatusLocalizedFields: LocalizedEnum<ServiceRequestStatusEnumType> =
+  {
+    PENDING: {
+      ar: "معلق",
+      en: "Pending",
+    },
+    IN_PROGRESS: {
+      ar: "قيد التنفيذ",
+      en: "In Progress",
+    },
+    COMPLETED: {
+      ar: "مكتمل",
+      en: "Completed",
+    },
+    REJECTED: {
+      ar: "مرفوض",
+      en: "Rejected",
+    },
+  };

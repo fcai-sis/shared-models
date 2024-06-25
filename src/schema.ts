@@ -17,3 +17,11 @@ export const foreignKey = (modelName: string, required: boolean = true) => ({
   },
   required,
 });
+
+export type LocalizedFields<T> = {
+  [key in keyof T]: { ar: string; en: string };
+};
+
+export type LocalizedEnum<T extends string | number | symbol> = {
+  [key in keyof { [key in T]: never }]: { ar: string; en: string };
+};

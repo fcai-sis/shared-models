@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { departmentModelName } from "./department.model";
 import { userModelName } from "./user.model";
 import { emailValidator } from "../validators";
-import { foreignKey } from "../schema";
+import { LocalizedFields, foreignKey } from "../schema";
 
 export const instructorModelName = "Instructor";
 
@@ -38,3 +38,12 @@ const instructorSchema = new mongoose.Schema<IInstructor>({
 export const InstructorModel =
   mongoose.models.Instructor ||
   mongoose.model<IInstructor>(instructorModelName, instructorSchema);
+
+export const instructorLocalizedFields: LocalizedFields<
+  Omit<InstructorType, "user">
+> = {
+  fullName: { ar: "الاسم الكامل", en: "Full Name" },
+  email: { ar: "البريد الإلكتروني", en: "Email" },
+  department: { ar: "القسم", en: "Department" },
+  officeHours: { ar: "ساعات الدوام", en: "Office Hours" },
+};
