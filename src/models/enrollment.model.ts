@@ -81,14 +81,12 @@ export const enrollmentSchema = new mongoose.Schema<IEnrollment>({
     validate: {
       validator: (v: number) => integerValidator("Group", v),
     },
-    default: null,
   },
   examSeatNumber: {
     type: Number,
     validate: {
       validator: (v: number) => integerValidator("Seat Number", v),
     },
-    default: null,
   },
 
   examHall: foreignKey(hallModelName, false),
@@ -97,14 +95,12 @@ export const enrollmentSchema = new mongoose.Schema<IEnrollment>({
     validate: {
       validator: (v: number) => integerValidator("Final Exam Grade", v),
     },
-    default: null,
   },
   termWorkMark: {
     type: Number,
     validate: {
       validator: (v: number) => integerValidator("Term Work Grade", v),
     },
-    default: null,
   },
   grade: {
     type: String,
