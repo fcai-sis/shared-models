@@ -21,7 +21,31 @@ export type GenderEnumType = (typeof GenderEnum)[number];
 export const ReligionEnum = ["MUSLIM", "CHRISTIAN", "OTHER"] as const;
 export type ReligionEnumType = (typeof ReligionEnum)[number];
 
-export const NationalityEnum = ["EGYPTIAN", "FOREIGNER"] as const;
+export const NationalityEnum = [
+  "EGYPTIAN",
+  "BAHRAINI",
+  "COMORAN",
+  "DJIBOUTIAN",
+  "ALGERIAN",
+  "IRAQI",
+  "JORDANIAN",
+  "KUWAITI",
+  "LEBANESE",
+  "LIBYAN",
+  "MAURITANIAN",
+  "MOROCCAN",
+  "OMANI",
+  "PALESTINIAN",
+  "QATARI",
+  "SAUDI",
+  "SOMALI",
+  "SUDANESE",
+  "SYRIAN",
+  "TUNISIAN",
+  "EMIRATI",
+  "YEMENI",
+  "FOREIGN",
+] as const;
 export type NationalityEnumType = (typeof NationalityEnum)[number];
 
 export interface IStudent extends mongoose.Document {
