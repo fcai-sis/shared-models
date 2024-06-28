@@ -4,7 +4,7 @@ import { LocalizedEnum, LocalizedFields } from "../schema";
 
 export const departmentModelName = "Department";
 
-export const ProgramEnum = ["GENERAL", "SPECIAL"] as const;
+export const ProgramEnum = ["GENERAL", "SPECIALIZATION", "SPECIAL"] as const;
 export type ProgramEnumType = (typeof ProgramEnum)[number];
 
 export interface IDepartment extends mongoose.Document {
@@ -85,5 +85,9 @@ export const departmentProgramLocalizedEnum: LocalizedEnum<ProgramEnumType> = {
   SPECIAL: {
     ar: "خاص",
     en: "Special",
+  },
+  SPECIALIZATION: {
+    ar: "تخصص",
+    en: "Specialization",
   },
 };
