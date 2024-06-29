@@ -86,8 +86,4 @@ export const departmentProgramLocalizedEnum: LocalizedEnum<ProgramEnumType> = {
     ar: "خاص",
     en: "Special",
   },
-  SPECIALIZATION: {
-    ar: "تخصص",
-    en: "Specialization",
-  },
 };
