@@ -28,7 +28,7 @@ const academicStudentSchema = new mongoose.Schema<IAcademicStudent>({
   major: foreignKey(departmentModelName, false),
   gpa: {
     type: Number,
-    default: 0.0,
+    required: true,
   },
   level: {
     type: Number,
