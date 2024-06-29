@@ -24,9 +24,6 @@ const teachingAssistantSchema = new mongoose.Schema<ITeachingAssistant>({
   fullName: {
     type: String,
     required: true,
-    validate: {
-      validator: (v: string) => arabicValidator("Full Name", v),
-    },
   },
   email: {
     type: String,
