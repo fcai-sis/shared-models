@@ -6,7 +6,8 @@ export const chatModelName = "Chat";
 
 export interface IChat extends mongoose.Document {
   messages: { sender: string; message: string; sentAt: Date }[];
-  participants: mongoose.Schema.Types.ObjectId[];
+  user1: mongoose.Schema.Types.ObjectId;
+  user2: mongoose.Schema.Types.ObjectId;
 }
 
 export type ChatType = Omit<IChat, keyof mongoose.Document>;
@@ -26,14 +27,8 @@ const chatSchema = new mongoose.Schema<IChat>({
       },
     },
   ],
-  // participants is an array of ObjectIds
-  participants: [
-    {
-      type: [mongoose.Schema.Types.ObjectId],
-      required: true,
-      ref: userModelName,
-    },
-  ],
+  user1: foreignKey(userModelName),
+  user2: foreignKey(userModelName),
 });
 
 export const ChatModel =
