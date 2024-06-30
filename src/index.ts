@@ -27,3 +27,4 @@ export * from "./models/ta.model";
 export * from "./models/taTeaching.model";
 export * from "./models/user.model";
 export * from "./models/bylaw.model";
+export * from "./models/dynamicConfig.model";
