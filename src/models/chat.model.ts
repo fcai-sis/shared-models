@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { userModelName } from "./user.model";
-import { foreignKey } from "schema";
+import { foreignKey } from "../schema";
 
 export const chatModelName = "Chat";
 
