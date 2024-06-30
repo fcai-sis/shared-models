@@ -5,6 +5,7 @@ export const dynamicConfigModelName = "DynamicConfiguration";
 export interface IDynamicConfig extends mongoose.Document {
   isCourseEnrollOpen: boolean;
   isGradProjectRegisterOpen: boolean;
+  isDepartmentEnrollOpen: boolean;
 }
 
 export type DynamicConfigType = Omit<IDynamicConfig, keyof mongoose.Document>;
@@ -16,6 +17,11 @@ const dynamicConfigSchema = new mongoose.Schema<IDynamicConfig>({
     default: false,
   },
   isGradProjectRegisterOpen: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  isDepartmentEnrollOpen: {
     type: Boolean,
     required: true,
     default: false,
