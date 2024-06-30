@@ -16,6 +16,7 @@ export interface IAcademicStudent extends mongoose.Document {
   gpa: number;
   level: number;
   creditHours: number;
+  isGraduated: boolean;
 }
 
 export type AcademicStudentType = Omit<
@@ -47,6 +48,10 @@ const academicStudentSchema = new mongoose.Schema<IAcademicStudent>({
       },
     },
   },
+  isGraduated: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export const AcademicStudentModel =
@@ -63,4 +68,5 @@ export const academicStudentLocalizedFields: LocalizedFields<AcademicStudentType
     gpa: { ar: "المعدل التراكمي", en: "GPA" },
     level: { ar: "المستوى الحالي", en: "Current Level" },
     creditHours: { ar: "الساعات المعتمدة", en: "Credit Hours" },
+    isGraduated: { ar: "هل تخرج", en: "Is Graduated" },
   };
