@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { referentialIntegrityValidator } from "./validators";
 
 /**
@@ -17,6 +17,25 @@ export const foreignKey = (modelName: string, required: boolean = true) => ({
   },
   required,
 });
+
+/**
+ * A function to cascade delete foreign keys.
+ *
+ * @param modelName The name of the model to reference
+ * @param fieldName The name of the field containing the foreign key
+ * @param value The value of the foreign key to delete
+ */
+export const cascadeDelete = async (
+  modelName: string,
+  fieldName: string,
+  value: mongoose.Schema.Types.ObjectId
+) => {
+  const Model = mongoose.model(modelName) as Model<Document>;
+  await Model.updateMany(
+    { [fieldName]: value },
+    { $pull: { [fieldName]: value } }
+  ).exec();
+};
 
 export type LocalizedFields<T> = {
   [key in keyof T]: { ar: string; en: string };
