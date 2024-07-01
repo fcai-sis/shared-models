@@ -35,6 +35,8 @@ export interface IByLaw extends mongoose.Document {
   useDetailedGraduationProjectHours: boolean;
   levelRequirements: Map<string, ILevelRequirement>;
   graduationProjectRequirements: Map<string, IGraduationProjectRequirement>;
+  graduateRequirement: number;
+  coursePassCriteria: number;
   yearApplied: number;
   createdAt?: Date;
   updatedAt?: Date;
@@ -233,6 +235,18 @@ export const bylawSchema = new mongoose.Schema<IByLaw>(
         validator: departmentCodeValidator,
         message: "Invalid department code in graduationProjectRequirements",
       },
+    },
+
+    // Number of credits required to graduate
+    graduateRequirement: {
+      type: Number,
+      required: true,
+    },
+
+    // Minimum grade required to pass a course
+    coursePassCriteria: {
+      type: Number,
+      required: true,
     },
 
     yearApplied: {
