@@ -29,3 +29,4 @@ export * from "./models/user.model";
 export * from "./models/bylaw.model";
 export * from "./models/dynamicConfig.model";
 export * from "./models/chat.model";
+export * from "./models/graduatedStudent.model";
