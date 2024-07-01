@@ -1,11 +1,7 @@
 import mongoose from "mongoose";
 import { studentModelName } from "./student.model";
 import { departmentModelName } from "./department.model";
-import {
-  betweenValidator,
-  floatValidator,
-  integerValidator,
-} from "../validators";
+import { betweenValidator, integerValidator } from "../validators";
 import { LocalizedFields, foreignKey } from "../schema";
 
 export const academicStudentModelName = "AcademicStudent";
@@ -15,7 +11,8 @@ export interface IAcademicStudent extends mongoose.Document {
   major: mongoose.Schema.Types.ObjectId;
   gpa: number;
   level: number;
-  creditHours: number;
+  mandatoryHours: number;
+  electiveHours: number;
   isGraduated: boolean;
 }
 
@@ -38,13 +35,23 @@ const academicStudentSchema = new mongoose.Schema<IAcademicStudent>({
       validator: (v: number) => integerValidator("Current Level", v),
     },
   },
-  creditHours: {
+  mandatoryHours: {
     type: Number,
     default: 0,
     validate: {
       validator: (v: number) => {
-        integerValidator("Credit Hours", v);
-        betweenValidator("Credit Hours", v, 0, Infinity);
+        integerValidator("Mandatory Credit Hours", v);
+        betweenValidator("Mandatory Credit Hours", v, 0, Infinity);
+      },
+    },
+  },
+  electiveHours: {
+    type: Number,
+    default: 0,
+    validate: {
+      validator: (v: number) => {
+        integerValidator("Elective Credit Hours", v);
+        betweenValidator("Elective Credit Hours", v, 0, Infinity);
       },
     },
   },
@@ -67,6 +74,7 @@ export const academicStudentLocalizedFields: LocalizedFields<AcademicStudentType
     major: { ar: "التخصص", en: "Major" },
     gpa: { ar: "المعدل التراكمي", en: "GPA" },
     level: { ar: "المستوى الحالي", en: "Current Level" },
-    creditHours: { ar: "الساعات المعتمدة", en: "Credit Hours" },
+    mandatoryHours: { ar: "ساعات الإجباري", en: "Mandatory Hours" },
+    electiveHours: { ar: "ساعات الاختياري", en: "Elective Hours" },
     isGraduated: { ar: "هل تخرج", en: "Is Graduated" },
   };
