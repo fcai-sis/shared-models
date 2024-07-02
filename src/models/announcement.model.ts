@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 import { employeeModelName } from "./employee.model";
 import { betweenValidator } from "../validators";
 import { foreignKey } from "../schema";
-
-export const announcementModelName = "Announcement";
+import { departmentModelName } from "./department.model";
+import { ForeignKeyNotFound } from "@fcai-sis/shared-utilities";
 
 export const AnnouncementSeveritiesEnum = [
   "INFO",
@@ -62,6 +62,27 @@ const announcementSchema = new mongoose.Schema<IAnnouncement>({
     default: false,
   },
 });
+
+// Pre-save hook to ensure referential integrity
+announcementSchema.pre("save", async function (next) {
+  try {
+    if (!this.departments) {
+      return next();
+    }
+    const departments = await mongoose
+      .model(departmentModelName)
+      .find({ _id: { $in: this.departments } });
+    if (departments.length !== this.departments.length) {
+      throw new ForeignKeyNotFound("Some departments not found");
+    }
+
+    next();
+  } catch (error: any) {
+    return next(error);
+  }
+});
+
+export const announcementModelName = "Announcement";
 
 export const AnnouncementModel =
   mongoose.models.Announcement ||
