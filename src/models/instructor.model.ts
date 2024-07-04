@@ -13,6 +13,7 @@ export interface IInstructor extends mongoose.Document {
   department: mongoose.Schema.Types.ObjectId;
   user: mongoose.Schema.Types.ObjectId;
   officeHours?: string;
+  office?: string;
 }
 
 export type InstructorType = Omit<IInstructor, keyof mongoose.Document>;
@@ -29,6 +30,10 @@ const instructorSchema = new mongoose.Schema<IInstructor>({
   },
   department: foreignKey(departmentModelName),
   user: foreignKey(userModelName),
+  office: {
+    type: String,
+    default: null,
+  },
   officeHours: {
     type: String,
     default: null,

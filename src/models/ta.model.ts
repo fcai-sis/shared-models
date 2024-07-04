@@ -13,6 +13,7 @@ export interface ITeachingAssistant extends mongoose.Document {
   department: mongoose.Schema.Types.ObjectId;
   user: mongoose.Schema.Types.ObjectId;
   officeHours?: string;
+  office?: string;
 }
 
 export type TeachingAssistantType = Omit<
@@ -35,6 +36,10 @@ const teachingAssistantSchema = new mongoose.Schema<ITeachingAssistant>({
   },
   department: foreignKey(departmentModelName),
   user: foreignKey(userModelName),
+  office: {
+    type: String,
+    default: null,
+  },
   officeHours: {
     type: String,
     default: null,
