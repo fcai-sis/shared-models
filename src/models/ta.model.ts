@@ -4,6 +4,7 @@ import { departmentModelName } from "./department.model";
 import { userModelName } from "./user.model";
 import { arabicValidator, emailValidator } from "../validators";
 import { foreignKey, LocalizedFields } from "../schema";
+import { TitleEnum, TitleEnumType } from "./instructor.model";
 
 export const teachingAssistantModelName = "TeachingAssistant";
 
@@ -14,6 +15,8 @@ export interface ITeachingAssistant extends mongoose.Document {
   user: mongoose.Schema.Types.ObjectId;
   officeHours?: string;
   office?: string;
+  // Updated by Admin or Instructor
+  title: TitleEnumType;
 }
 
 export type TeachingAssistantType = Omit<
@@ -44,6 +47,11 @@ const teachingAssistantSchema = new mongoose.Schema<ITeachingAssistant>({
     type: String,
     default: null,
   },
+  title: {
+    type: String,
+    enum: TitleEnum,
+    required: true,
+  },
 });
 
 export const TeachingAssistantModel =
@@ -60,4 +68,5 @@ export const teachingAssistantLocalizedFields: LocalizedFields<
   email: { ar: "البريد الإلكتروني", en: "Email" },
   department: { ar: "القسم", en: "Department" },
   officeHours: { ar: "ساعات الدوام", en: "Office Hours" },
+  title: { ar: "اللقب", en: "Title" },
 };

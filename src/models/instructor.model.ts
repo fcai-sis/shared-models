@@ -15,6 +15,14 @@ export const TitleEnum = [
   "PROFESSOR",
 ] as const;
 
+export const localizedTitleEnum = {
+  ASSISTANT: { ar: "مساعد", en: "Assistant" },
+  ASSISTANT_INSTRUCTOR: { ar: "دكتور مساعد", en: "Assistant Instructor" },
+  INSTRUCTOR: { ar: "دكتور", en: "Instructor" },
+  ASSISTANT_PROFESSOR: { ar: "أستاذ مساعد", en: "Assistant Professor" },
+  PROFESSOR: { ar: "استاذ", en: "Professor" },
+};
+
 export type TitleEnumType = (typeof TitleEnum)[number];
 
 export interface IInstructor extends mongoose.Document {
