@@ -77,10 +77,8 @@ export const enrollmentSchema = new mongoose.Schema<IEnrollment>({
     default: EnrollmentStatusEnum[0],
   },
   group: {
-    type: Number,
-    validate: {
-      validator: (v: number) => integerValidator("Group", v),
-    },
+    type: String,
+    required: false,
   },
   examSeatNumber: {
     type: Number,
