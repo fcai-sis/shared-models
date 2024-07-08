@@ -30,9 +30,6 @@ const studentSemesterSchema = new mongoose.Schema<IStudentSemester>({
   cumulativeGpa: {
     type: Number,
     required: true,
-    validate: {
-      validator: (v: number) => floatValidator("Cumulative GPA", v),
-    },
   },
   semesterLevel: {
     type: Number,
